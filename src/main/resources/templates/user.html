@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User List</title>
+</head>
+<body>
+<h1>List of Users</h1>
+<table border="1">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Date of Birth</th>
+    <th>National ID</th>
+    <th>Phone</th>
+    <th>Email</th>
+    <th>Address</th>
+    <th>Wallet</th>
+    <th>Driving License</th>
+    <th>Role ID</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!-- Duyệt qua danh sách người dùng và hiển thị thông tin -->
+  <tr th:each="user : ${users}">
+    <td th:text="${user.id}"></td>
+    <td th:text="${user.customerName}"></td>
+    <td th:text="${user.dob}"></td>
+    <td th:text="${user.nationalId}"></td>
+    <td th:text="${user.phone}"></td>
+    <td th:text="${user.email}"></td>
+    <td th:text="${user.address}"></td>
+    <td th:text="${user.wallet}"></td>
+    <td th:text="${user.drivingLicense}"></td>
+    <td th:text="${user.roleId}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

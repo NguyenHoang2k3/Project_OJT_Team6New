@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings</title>
+  <link rel="stylesheet" th:href="@{/css/all.min.css}" />
+  <link rel="stylesheet" th:href="@{/css/framework.css}" />
+  <link rel="stylesheet" th:href="@{/css/master.css}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
+      vertical-align: middle; /* Căn giữa theo chiều dọc với chữ */
+      margin-right: 5px; /* Khoảng cách giữa biểu tượng và chữ */
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header h1 {
+      margin: 0; /* Loại bỏ margin mặc định của h1 */
+    }
+    .header button {
+      margin-right: 20px; /* Điều chỉnh giá trị này theo ý muốn để lệch sang trái */
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+<!-- sidebar start -->
+<div class="sidebar bg-white p-20 p-relative">
+  <h3 class="p-relative txt-c mt-0"><a th:href="@{${url}}">ADMIN</a></h3>
+  <form method="get" th:action="@{/Logout}">
+    <button class="label btn-shape bg-green c-white" style="margin-left: 43px;">
+      <span class="material-symbols-outlined">logout</span>Logout
+    </button>
+  </form>
+  <ul>
+    <li>
+      <a class="d-flex align-center fs-14 c-black rad-6 p-10" th:href="@{/AdminManage}">
+        <i class="fa-regular fa-user fa-fw"></i>
+        <span>AD management</span>
+      </a>
+    </li>
+    <li>
+      <a class="d-flex align-center fs-14 c-black rad-6 p-10" th:href="@{/AdminManageUser}">
+        <i class="fa-regular fa-user fa-fw"></i>
+        <span>User management</span>
+      </a>
+    </li>
+    <!--                <li>
+                        <a class="d-flex align-center fs-14 c-black rad-6 p-10" th:href="@{/reportReview}">
+                            <i class="fa-regular fa-user fa-fw"></i>
+                            <span>Report reviews</span>
+                        </a>
+                    </li>-->
+    <li>
+      <a class="d-flex align-center fs-14 c-black rad-6 p-10" th:href="@{/AdminCourseManagement}">
+        <i class="fa-solid fa-graduation-cap fa-fw"></i>
+        <span>Approve Course</span>
+      </a>
+    </li>
+    <li>
+      <a class="d-flex align-center fs-14 c-black rad-6 p-10" th:href="@{/AdminManageTeacher}">
+        <i class="fa-regular fa-circle-user fa-fw"></i>
+        <span>Approve Teacher</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<!-- end sidebar -->
+</body>
+</html>

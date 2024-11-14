@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Car</title>
+  <link rel="stylesheet" href="/add_car.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<div class="modal-content">
+<form action="/addCar" method="post" th:object="${car}">
+  <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+  <div class="modal-header">
+    <h2 class="modal-title" id="exampleModalLabel">New Car</h2>
+    <div class="text-end">
+      <button type="submit" class="btn btn-primary" style="background: #00c16e; border: none">ADD CAR</button>
+    </div>
+  </div>
+
+  <div class="preview-container d-flex">
+    <div class="col-md-4 image-column">
+      <div class="preview-box mb-3">
+        <img id="preview-imageCar" class="img-fluid" alt="Car Image">
+      </div>
+      <input type="file" id="image" th:field="*{image}" accept="image/*" onchange="previewImageCar(this)" class="forms-control mb-3" required>
+      <span class="text-danger" th:errors="*{image}"></span>
+      <div class="preview-box mb-3">
+        <img id="preview-imageVehicleRegistration" class="img-fluid" alt="Vehicle Registration Image">
+      </div>
+      <input type="file" id="vehicleRegistration" th:field="*{vehicleRegistration}" accept="image/*" onchange="previewImageVehicleRegistration(this)" class="forms-control mb-3" required>
+      <span class="text-danger" th:errors="*{vehicleRegistration}"></span>
+    </div>
+
+    <div class="col-md-8 form-column">
+      <div class="form-container">
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label">Car Name<span class="text-danger">*</span></label>
+            <input id="name" type="text" class="form-control" th:field="*{name}">
+            <span class="text-danger" th:errors="*{name}"></span>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">License Plate</label>
+            <input id="licensePlate" type="text" class="form-control" th:field="*{licensePlate}">
+            <span class="text-danger" th:errors="*{licensePlate}"></span>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label class="form-label">Brand<span class="text-danger">*</span></label>
+            <input id="brand" type="text" class="form-control" th:field="*{brand}">
+            <span class="text-danger" th:errors="*{brand}"></span>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Model<span class="text-danger">*</span></label>
+            <input id="model" type="text" class="form-control" th:field="*{model}">
+            <span class="text-danger" th:errors="*{model}"></span>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Production Years<span class="text-danger"></span></label>
+            <input id="productionYears" type="date" class="form-control" th:field="*{productionYears}">
+            <span class="text-danger" th:errors="*{productionYears}"></span>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label">Fuel Type<span class="text-danger">*</span></label>
+            <select id="fuelType" class="form-control" th:field="*{fuelType}">
+              <option value="">-- Select Fuel Type --</option>
+              <option value="Xăng">Xăng</option>
+              <option value="Dầu Diesel">Dầu Diesel</option>
+              <option value="EV">EV</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Fuel Consumption<span class="text-danger">*</span></label>
+            <div class="input-group">
+              <input id="fuelConsumption" type="number" class="form-control" value="0" min="0" th:field="*{fuelConsumption}">
+              <span class="input-group-text">L/100Km</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label">Insurance Price<span class="text-danger">*</span></label>
+            <input name="price" id="price" type="text" class="form-control" th:field="*{price}">
+            <span class="text-danger" th:errors="*{price}"></span>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Rental Price<span class="text-danger">*</span></label>
+            <input id="rentalPrice" type="text" class="form-control" th:field="*{rentalPrice}">
+            <span class="text-danger" th:errors="*{rentalPrice}"></span>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label">Address<span class="text-danger">*</span></label>
+            <input id="address" type="text" class="form-control" th:field="*{address}">
+            <span class="text-danger" th:errors="*{address}"></span>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Term Of Use<span class="text-danger"></span></label>
+            <textarea id="termOfUse" class="form-control" rows="3" th:field="*{termOfUse}"></textarea>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label class="form-label">Number Of Seats:</label>
+            <div class="input-group" style="width: 100px">
+              <input id="numberOfSeats" type="number" class="form-control" value="2" min="2" th:field="*{numberOfSeats}">
+              <span class="text-danger" th:errors="*{numberOfSeats}"></span>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Car Status:</label>
+            <div class="d-flex">
+              <div class="form-check me-3" style="margin-right: 20px; display: flex; align-items: center">
+                <input type="radio"  id="rental" class="form-check-input" th:field="*{carStatus}" value="RENTAL" checked>
+                <label for="rental" class="form-check-label">Rental</label>
+              </div>
+              <div class="form-check" style="display: flex; align-items: center">
+                <input type="radio" id="non_rental" class="form-check-input" th:field="*{carStatus}" value="NON_RENTAL">
+                <label for="non_rental" class="form-check-label">Non-Rental</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label" for="addressCarStatus">Address Car Status:</label>
+            <div class="form-check" style="display:flex; align-items: center">
+              <input type="checkbox" id="addressCarStatus" class="form-check-input" th:field="*{addressCarStatus}" checked>
+              <label for="addressCarStatus" class="form-check-label">Hỗ trợ giao xe tận nơi</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</form>
+</div>
+
+<script>
+  function previewImageCar(input) {
+    const previewBox = document.getElementById('preview-imageCar');
+    const file = input.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        previewBox.src = e.target.result;
+        previewBox.style.display = 'block';
+      }
+      reader.readAsDataURL(file);
+    }
+  }
+
+  function previewImageVehicleRegistration(input) {
+    const previewBox = document.getElementById('preview-imageVehicleRegistration');
+    const file = input.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        previewBox.src = e.target.result;
+        previewBox.style.display = 'block';
+      }
+      reader.readAsDataURL(file);
+    }
+  }
+  function changeSeats(delta) {
+    const numberOfSeatsInput = document.getElementById('numberOfSeats');
+    let currentValue = parseInt(numberOfSeatsInput.value) || 4;
+    currentValue += delta;
+    if (currentValue < 4) currentValue = 4;
+    numberOfSeatsInput.value = currentValue;
+  }
+</script>
+</body>
+</html>

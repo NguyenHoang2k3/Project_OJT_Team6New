@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>view</title>
+    <link rel="stylesheet" href="/mycars.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<div class="header"></div>
+<div class="container">
+    <h2 style="color: #00c16e">Xin chào bạn!</h2>
+    <div class="box-content">
+        <div class="choose-item">
+            <ul>
+                <li class="choose-item-active" data-info="Thông tin tài khoản của tôi"><i class="fas fa-user"></i>Tài khoản của tôi</li>
+                <li data-info="Xe yêu thích của tôi"><i class="fas fa-heart"></i>Xe yêu thích</li>
+                <li id="xe-cua-toi" data-info="Danh sách xe cho thuê"><i class="fas fa-car"></i> Xe của tôi</li>
+                <li id="chuyen-cua-toi" data-info="Chuyến của tôi"><i class="fas fa-paper-plane"></i>Chuyến của tôi</li>
+                <li data-info="Đơn hàng thuê xe đã hoàn"><i class="fas fa-shopping-bag"></i>Đơn hàng Thuê xe đã hoàn</li>
+            </ul>
+        </div>
+        <div class="detailed-information">
+            <div class="detailed-information-title">
+            <div id="info-content" style="font-size: 25px; font-weight: bold; color: #00c16e">Những chuyến đi tuyệt vời</div>
+            <a href="/addCar">
+            <div id="add-car-container" style="display: none;">
+                <button style="padding: 10px 20px; font-size: 16px; background-color: #00c16e; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    ADD CAR
+                </button>
+            </div>
+            </a>
+            </div>
+            <div class="list-myCar">
+                <div th:if="${messages}" class="alert alert-success">
+                    <p th:text="${messages}"></p>
+                </div>
+               <div id="add-car-container1" style="display: none;">
+                   List sẽ hiển thị đây
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer"></footer>
+<script>
+    fetch('/header.html')
+        .then(response => response.text())
+        .then(html => {
+            document.querySelector('.header').innerHTML = html;
+        })
+        .catch(error => {
+            console.log('Lỗi khi tải footer.html:', error);
+        });
+    fetch('/footer.html')
+        .then(response => response.text())
+        .then(html => {
+            document.querySelector('.footer').innerHTML = html;
+        })
+        .catch(error => {
+            console.log('Lỗi khi tải footer.html:', error);
+        });
+</script>
+<script>
+    const chooseItems = document.querySelectorAll('.choose-item li');
+    const infoContent = document.getElementById('info-content');
+    const addCarContainer = document.getElementById('add-car-container');
+    const addCarContainer1 = document.getElementById('add-car-container1');
+
+    const savedItemId = localStorage.getItem('selectedItemId');
+
+    chooseItems.forEach(item => {
+        item.addEventListener('click', () => {
+            chooseItems.forEach(i => i.classList.remove('choose-item-active'));
+
+            item.classList.add('choose-item-active');
+
+            infoContent.textContent = item.getAttribute('data-info');
+
+            if (item.id === "xe-cua-toi") {
+                addCarContainer.style.display = 'block';
+                addCarContainer1.style.display = 'block';
+            } else {
+                addCarContainer.style.display = 'none';
+                addCarContainer1.style.display = 'none';
+            }
+
+            localStorage.setItem('selectedItemId', item.id);
+        });
+    });
+
+    window.onload = function() {
+        if (window.location.hash) {
+            const targetElement = document.getElementById(window.location.hash.substring(1));
+            if (targetElement) {
+
+                targetElement.click();
+            }
+        }
+        else if (savedItemId) {
+            const savedItem = document.getElementById(savedItemId);
+            if (savedItem) {
+                savedItem.click();
+            }
+        }
+    };
+
+</script>
+</body>
+</html>

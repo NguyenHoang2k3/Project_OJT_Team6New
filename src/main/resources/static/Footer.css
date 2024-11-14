@@ -1,0 +1,78 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+.footer {
+    background-image: url("https://png.pngtree.com/thumb_back/fw800/background/20230407/pngtree-highway-overpass-motion-blur-with-beautiful-day-photo-image_2311735.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 40px;
+}
+
+.footer-logo {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.footer-logo img {
+    width: 50px;
+    height: 50px;
+    margin-top: 12px;
+    margin-right: 10px;
+    border-radius: 50px ;
+}
+
+.footer-contact {
+    font-size: 14px;
+    margin: 20px 0;
+}
+
+.footer-contact a {
+    color: #333;
+    text-decoration: none;
+}
+
+.footer-nav {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    font-size: 14px;
+}
+.content-footer{display: flex}
+.footer-nav div {
+    text-align: left;
+}
+.content-footer-1{margin-right: 20px}
+.footer-nav a {
+    color: #333;
+    text-decoration: none;
+    display: block;
+    margin: 20px 0;
+}
+.footer-nav a:hover {
+    color: #007bff;
+}
+.footer-bottom {
+    margin-top: 30px;
+    font-size: 12px;
+    color: black;
+}
+.footer-bottom p:nth-child(1){
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.footer-icons {
+    margin: 20px 0;
+    display: flex;
+}
+.footer-icons p {margin-left: 5px}
+.footer-icons img {
+    width: 40px;
+    height: 40px;
+    margin: 5px 0 0 20px;
+    border-radius: 5px;
+}

@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Car detail</title>
+    <link rel="stylesheet" href="/CarDetail.css">
+    <link rel="stylesheet" href="/Header.css">
+    <link rel="stylesheet" href="/Footer.css">
+    <link rel="stylesheet" href="/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<div class="header"></div>
+<form action="/carDetail" method="get" th:object="${car}">
+    <input type="hidden" th:field="*{carId}">
+<div class="container">
+    <div class="content-1">
+        <div class="Image-detail">
+            <img th:src="@{/ImageProject/{imageName}(imageName=*{image})}">
+        </div>
+        <div class="content-info">
+            <h1 th:text="${car.name}"></h1>
+            <div class="content-address">
+                <div class="number-trip" style="font-size: 18px">
+                    <i class="fas fa-star" style="color: gold;"></i>5.0 -
+                    <i class="fas fa-suitcase" style="color: green;"></i> 10 chuyến -
+                    <p th:text="${car.address}"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature">
+            <h3>Đặc điểm</h3>
+            <div class="feature-items">
+                <div class="list-item">
+                    <i class="fas fa-cogs fa-2x"></i>
+                    <div class="item-detail">
+                        <p style="font-size: 18px">Truyền động</p>
+                        <div>
+                        <p style="color: black">Số tự động</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="list-item">
+                    <i class="fas fa-chair fa-2x"></i>
+                    <div class="item-detail">
+                        <p style="font-size: 18px">Số ghế</p>
+                        <div style="display: flex;">
+                        <p th:text="${car.numberOfSeats}" style="margin-right: 10px; color: black"></p>
+                        <p style="color: black">Chỗ</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="list-item">
+                    <i class="fas fa-gas-pump fa-2x"></i>
+                    <div class="item-detail">
+                        <p style="font-size: 18px">Nhiên liệu</p>
+                        <div>
+                            <p style="color: black" th:text="${car.fuelType}"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="list-item">
+                    <i class="fas fa-tint fa-2x"></i>
+                    <div class="item-detail">
+                        <p>Tiêu hao</p>
+                        <div style="display: flex;">
+                            <p style="color: black" th:text="${car.fuelConsumption}"></p>
+                            <p style="color: black">L/100Km</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="describe-car">
+            <h3>Mô tả</h3>
+            <p th:text="${car.name.toUpperCase()}"></p>
+        </div>
+
+        <div class="other-amenities">
+            <h3>Các tiện nghi khác</h3>
+            <div class="feature-grid">
+                <div class="feature-item"><i class="fas fa-bluetooth"></i>Bluetooth</div>
+                <div class="feature-item"><i class="fas fa-camera"></i> Camera 360</div>
+                <div class="feature-item"><i class="fas fa-video"></i>Camera hành trình</div>
+                <div class="feature-item"><i class="fas fa-camera-retro"></i>Camera lùi</div>
+                <div class="feature-item"><i class="fas fa-tachometer-alt"></i>Cảm biến lốp</div>
+                <div class="feature-item"><i class="fas fa-map-marker-alt"></i> Định vị GPS</div>
+                <div class="feature-item"><i class="fas fa-usb"></i> Khe cắm USB</div>
+                <div class="feature-item"><i class="fas fa-circle"></i> Lốp dự phòng</div>
+                <div class="feature-item"><i class="fas fa-tv"></i>Màn hình DVD</div>
+                <div class="feature-item"><i class="fas fa-credit-card"></i>ETC</div>
+                <div class="feature-item"><i class="fas fa-air-freshener"></i>Túi khí an toàn</div>
+            </div>
+        </div>
+
+        <div class="paper-car">
+            <h3>Giấy tờ thuê xe ?</h3>
+            <div class="form-paper">
+                <div class="paper-item" style="font-size: 15px;color: gray">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <p>Chọn 1 trong 2 hình thức</p>
+                </div>
+                <div class="paper-item">
+                    <i class="fas fa-id-card"></i>
+                    <p>GPLX (đối chiếu) & CCCD (đối chiếu VNeID)</p>
+                </div>
+                <div class="paper-item">
+                    <i class="fas fa-passport"></i>
+                    <p>GPLX (đối chiếu) & Passport (giữ lại)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="paper-car">
+            <h3>Tài sản thế chấp ?</h3>
+            <div class="form-paper">
+                <div class="paper-item">
+                    <p>15 triệu (tiền mặt/chuyển khoản cho chủ xe khi nhận xe) hoặc Xe máy (kèm cà vẹt gốc) giá trị 15 triệu</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="clause-car">
+            <h3>Điều khoản</h3>
+            <div class="rules-other">
+                <p style="margin-bottom: 10px">Quy định khác: </p>
+                <ul>
+                    <li>Sử dụng xe đúng mục đích.</li>
+                    <li>Không sử dụng xe thuê vào mục đích phi pháp, trái pháp luật.</li>
+                    <li>Không sử dụng xe thuê để cầm cố, thế chấp</li>
+                    <li>Không hút thuốc, nhả kẹo cao su, xả rác trong xe.</li>
+                    <li>Không chở hàng quốc cấm dễ cháy nổ.</li>
+                    <li>Không chở hoa quả, thực phẩm nặng mùi trong xe.</li>
+                    <li>Khi trả xe, nếu xe bẩn hoặc có mùi trong xe, khách hàng vui lòng vệ sinh xe sạch sẽ hoặc gửi phụ thu phí vệ sinh xe.</li>
+                </ul>
+                <p style="margin-top: 10px">Trân trọng cảm ơn, chúc quý khách hàng có những chuyến đi tuyệt vời !</p>
+            </div>
+        </div>
+
+        <div class="car-policy">
+            <h3>Chính sách huỷ chuyến</h3>
+            <table>
+                <tr>
+                    <th>Thời Điểm Hủy Chuyến</th>
+                    <th>Phí Hủy Chuyến</th>
+                </tr>
+                <tr>
+                    <td>Trong Vòng 1h Sau Giờ Chờ</td>
+                    <td class="check">Miễn phí</td>
+                </tr>
+                <tr>
+                    <td>Trước Chuyến Đi > 7 Ngày<br>(Sau 1h Giờ Chờ)</td>
+                    <td class="check">10% giá trị chuyến đi</td>
+                </tr>
+                <tr>
+                    <td>Trong Vòng 7 Ngày Trước Chuyến Đi<br>(Sau 1h Giờ Chờ)</td>
+                    <td class="cancel">33% giá trị chuyến đi</td>
+                </tr>
+            </table>
+            <ul>
+                <li>Chính sách hủy chuyến áp dụng chung cho cả khách thuê và chủ xe (ngoài ra, tùy vào thời điểm hủy chuyến, chủ xe có thể bị đánh giá từ 2-3* trên hệ thống).</li>
+                <li>Khách thuê không nhận xe sẽ mất phí hủy chuyến (33% giá trị chuyến đi).</li>
+                <li>Chủ xe không giao xe sẽ hoàn tiền giữ chỗ & bồi thường phí hủy chuyến cho khách thuê (33% giá trị chuyến đi).</li>
+                <li>Tiền giữ chỗ & bồi thường do chủ xe hủy chuyến (nếu có) sẽ được Mioto hoàn trả đến khách thuê bằng chuyển khoản ngân hàng trong vòng 1-3 ngày làm việc kế tiếp.</li>
+            </ul>
+        </div>
+
+        <div class="location-car">
+            <h3>Vị trí xe</h3>
+            <div class="specific-location">
+                <div class="location-name">
+                    <i class="fas fa-location-pin"></i>
+                    <p th:text="${car.address}">Quận Bình Thạnh, TP. Hồ Chí Minh</p>
+                </div>
+                <div class="check-map">
+                    <i class="fas fa-map"></i>
+                    <p>Xem bản đồ</p>
+                </div>
+            </div>
+            <p style="color: gray; font-size: 12px">Địa chỉ cụ thể sẽ được hiển thị sau khi thanh toán giữ chỗ</p>
+        </div>
+
+        <div class="car-owner">
+            <h3>Chủ xe</h3>
+            <div class="evaluation-data">
+                <img src="https://n1-cstg.mioto.vn/m/avatars/avatar-5.png">
+                <div class="user-info">
+                    <h2>Nguyễn Văn Hiển</h2>
+                    <i class="fas fa-star" style="color: gold;"></i>5.0 -
+                    <i class="fas fa-suitcase" style="color: green;"></i> 10 chuyến
+                </div>
+                <div class="statistics">
+                    <div class="statistics-item">
+                        <p>Tỉ lệ phản hồi</p>
+                        <p>100%</p>
+                    </div>
+
+                    <div class="statistics-item">
+                        <p>Thời gian phản hồi</p>
+                        <p>5 phút</p>
+                    </div>
+
+                    <div class="statistics-item">
+                        <p>Tỉ lệ đồng ý</p>
+                        <p>66%</p>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex; margin-top: 20px">
+                <i class="fas fa-star" style="color: gold;"></i>5.0 -
+                <p>11 đánh giá</p>
+            </div>
+
+        </div>
+
+        <div class="similar-car">
+            <h3 style="margin: 20px 0 30px 20px; font-size: 1.25rem">Xe tương tự</h3>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" th:each="car: ${carSameBrand}">
+                        <a th:href ="@{/carDetail/{carId}(carId = ${car.carId})}" style="text-decoration: none; color: inherit">
+                          <div class="car-main">
+                            <div class="car-img">
+                                <img th:src="@{/ImageProject/{imageName}(imageName=${car.image})}">
+                            </div>
+                            <div class="car-item">
+                                <div class="car-type">
+                                    <p th:text="${car.model}">Số tự động</p>
+                                    <p th:if="${car.addressCarStatus}">Giao xe tận nơi</p>
+                                </div>
+                                <p class="name-car" th:text="${car.name}"></p>
+                                <p class="address-car" th:text="${car.address}"><i class="fas fa-map-marker-alt" style="color: black; margin-right: 5px"></i> Quận 3, TP. Hồ Chí Minh</p>
+                            </div>
+                            <div class="information">
+                                <div class="number-trip">
+                                    <i class="fas fa-star" style="color: gold;"></i>5.0 -
+                                    <i class="fas fa-suitcase" style="color: green;"></i> 100+ chuyến
+                                </div>
+                                <div class="wrap-price">
+                            <span class="price-special">
+                                <span style="font-size: 16px; color: #00c16e; font-weight: bold" th:text="${car.rentalPrice}">730k</span>/ngày
+                            </span>
+                                </div>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="swiper-pagination"></div>
+
+                <div class="swiper-button-prev prev-ads"></div>
+                <div class="swiper-button-next next-ads"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-2">
+        <a href="#" onclick="openForm('form1')" style="text-decoration: none;color: inherit;">
+            <div class="protection">
+                <div class="protection-title">
+                    <img src="https://png.pngtree.com/png-clipart/20230703/original/pngtree-gold-and-black-shield-with-paddy-symbol-vector-png-image_9250711.png">
+                    <h3 style="color: #00c16e">Bảo hiểm thuê xe</h3>
+                </div>
+                <p style="font-size: 14px">Chuyến đi có mua bảo hiểm. Khách thuê bồi thường tối đa 2.000.000 VNĐ trong trường hợp có sự cố ngoài ý muốn.</p>
+                <p style="font-size: 15px ; font-weight: bold">Xem chi tiết</p>
+            </div>
+        </a>
+
+        <div class="confirm-car">
+            <div style="display: flex; align-items: center">
+            <p style="font-weight: bold; font-size: 25px;margin-right: 5px" th:text="${car.rentalPrice}"></p>
+            <span style="color: gray; font-size: 18px;">/ngày</span>
+            </div>
+            <div class="confirm-time">
+                <div class="trip-info">
+                    <div class="pick-up">
+                        <p>Nhận xe</p>
+                        <input type="datetime-local" value="2024-11-08T21:00">
+                    </div>
+                    <div class="return-car">
+                        <p>Trả xe</p>
+                        <input type="datetime-local" value="2024-11-09T20:00">
+                    </div>
+                </div>
+                <div class="confirm-address">
+                    <label for="location">Địa điểm giao nhận xe:</label>
+                    <select id="location">
+                        <option value="quan_binh_thanh" th:text="${car.address}"></option>
+                    </select>
+                    <p th:if="${car.addressCarStatus == false}" style="margin-top: 10px;margin-left: 5px; color: gray; font-size: 14px">Xin lỗi vì không thể giao xe tận nơi</p>
+                </div>
+            </div>
+
+            <div class="rental-price">
+                <div class="price-item">
+                    <p class="label">Đơn giá thuê ?</p>
+                    <div style="display: flex; align-items: center">
+                    <p style="font-weight: bold" class="value" th:text="${car.rentalPrice}">đ/ ngày</p>
+                    <span style="font-weight: bold">đ/ ngày</span>
+                    </div>
+                </div>
+                <div class="price-item">
+                    <p class="label">Bảo hiểm thuê xe ?</p>
+                    <div style="display: flex; align-items: center">
+                    <p style="font-weight: bold" class="value" th:text="${car.price}"></p>
+                    <span style="font-weight: bold">đ/ ngày</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="price-item" style="padding: 15px 0; border-bottom: 1px solid lightgray ">
+                <p class="label">Tổng cộng</p>
+                <div style="display: flex; align-items: center">
+                    <p style="font-weight: bold" class="value" th:text="${totalPrice}"></p>
+                     <span style="font-weight: bold">đ x 1 ngày</span>
+                </div>
+            </div>
+
+            <div class="price-item" style="padding: 10px 0; border-bottom: 1px solid lightgray ">
+                <p class="label"><i class="fas fa-tag" style="color: #00c16e; margin-right: 10px"></i>Mã Khuyến mại</p>
+                <p class="value">></p>
+            </div>
+
+            <div class="price-item" style="padding: 15px 0;">
+                <p class="label" style="font-weight: bold">Thành tiền</p>
+                <div style="display: flex; align-items: center">
+                <p class="value" th:text="${totalPrice}"></p>
+                <span style="font-weight: bold">đ</span>
+                </div>
+            </div>
+            <button><i class="fas fa-bolt" style="color: white"></i> CHỌN THUÊ</button>
+        </div>
+
+        <div class="additional-fee">
+            <p style="color: #00c16e; font-size: 16px">Phụ phí có thể phát sinh</p>
+            <div class="overdue">
+                <div class="overdue-price">
+                    <p>! Phí vượt giới hạn</p>
+                    <p>5 000đ/km</p>
+                </div>
+                <p class="content-additional-fee">Phụ phí phát sinh nếu lộ trình di chuyển vượt quá 300km khi thuê xe 1 ngày</p>
+            </div>
+
+            <div class="overdue">
+                <div class="overdue-price">
+                    <p>! Phí quá giờ</p>
+                    <p>90 000đ/h</p>
+                </div>
+                <p class="content-additional-fee">Phụ phí phát sinh nếu hoàn trả xe trễ giờ. Trường hợp trễ quá 5 giờ, phụ phí thêm 1 ngày thuê</p>
+            </div>
+
+            <div class="overdue">
+                <div class="overdue-price">
+                    <p>! Phí vệ sinh</p>
+                    <p>100 000đ</p>
+                </div>
+                <p class="content-additional-fee">Phụ phí phát sinh khi xe hoàn trả không đảm bảo vệ sinh (nhiều vết bẩn, bùn cát, sình lầy...)</p>
+            </div>
+
+            <div class="overdue">
+                <div class="overdue-price">
+                    <p>! Phí khử mùi</p>
+                    <p>400 000đ</p>
+                </div>
+                <p class="content-additional-fee">Phụ phí phát sinh khi xe hoàn trả bị ám mùi khó chịu (mùi thuốc lá, thực phẩm nặng mùi...)</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="overlay" id="overlay" onclick="closeForm()"></div>
+<div class="form-popup" id="form1">
+    <div>
+        <button type="button" class="close"><span aria-hidden="true" onclick="closeForm()">×</span><span class="sr-only"></span></button>
+        <div class="content-special-2" style="background: #5fcf86;border-radius: 20px">
+            <div style="color: white; padding: 20px">
+                <h4>Bảo hiểm thuê xe tự lái</h4>
+                <p>Với nhiều năm kinh nghiệm trong lĩnh vực cho thuê xe, Mioto hiểu rằng các rủi ro đâm đụng, cháy nổ,
+                    thủy kích gây tổn thất lớn (vượt quá khả năng chi trả) luôn tiềm ẩn trong thời gian thuê xe.
+                </p>
+                <p>❌ Trong khi đó, hầu hết các rủi ro phát sinh trong quá trình thuê xe tự lái sẽ
+                    không thuộc phạm vi của Bảo hiểm thân vỏ xe theo năm (hay còn gọi là Bảo hiểm 2 chiều).
+                </p>
+                <p>✅ Xuất phát từ nhu cầu thiết yếu của khách hàng,
+                    Mioto kết hợp với các đối tác bảo hiểm hàng đầu Việt Nam cùng mang đến sản phẩm Bảo hiểm
+                    thuê xe tự lái mức phí thực sự tiết kiệm và số tiền bảo hiểm lớn (đến 100% giá trị xe)
+                    sẽ giúp bạn không còn lo lắng khi thuê xe & an tâm tận hưởng hành trình của mình.
+                </p>
+            </div>
+        </div>
+        <div class="content-items">
+            <h5 style="margin: 20px 0;font-weight: bold">I. Nội dung sản phẩm Bảo hiểm thuê xe</h5>
+            <p>Trong thời gian thuê xe, nếu xảy ra các sự cố va chạm ngoài ý muốn dẫn đến tổn thất về xe,
+                khách thuê sẽ chỉ bồi thường số tiền tối đa 2,000,000đ để sửa chữa xe (mức khấu trừ),
+                nhà bảo hiểm sẽ hỗ trợ cho các chi phí phát sinh vượt mức khấu trừ.
+            </p>
+            <table class="table-content">
+
+                <tr>
+                    <th>Thiệt hại xe</th>
+
+                    <th>Khách thành toán</th>
+
+                    <th>Bảo hiểm thành toán</th>
+                </tr>
+                <tr>
+                    <td>< = 2 triệu</td>
+
+                    <td>< = 2 triệu</td>
+
+                    <td>0 triệu</td>
+                </tr>
+
+                <tr>
+                    <td>>> 2 triệu</td>
+
+                    <td>2 triệu</td>
+
+                    <td>298 triệu</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">Vì dụ minh họa: Xe có sự cố tổn thất 300,000,000đ</td>
+                </tr>
+
+            </table>
+            <p>• Lưu ý: Khách hàng cần thực hiện đầy đủ <span>Quy trình xử lý</span> khi xảy ra sự cố (<span>Mục III</span> bên dưới).</p>
+        </div>
+        <div class="content-items">
+            <h5 style="margin: 20px 0;font-weight: bold">II. Điều khoản Bảo hiểm</h5>
+            <ul>
+                <li>Bảo hiểm vật chất xe: đâm va , hỏa hoạn, cháy nổ</li>
+                <li>Miễn phí cứu hộ tối đa 70km/vụ</li>
+                <li>Bảo hiểm thủy kích (khấu trừ 20% số tiền bảo hiểm, tối thiểu 3 triệu đồng)</li>
+                <li>Mức khấu trừ: 2,000,000đ/vụ</li>
+            </ul>
+            <div class="items-special" style="color: #767676; font-size: .875rem">
+                <p>• Giải thích <span>Mức khấu trừ</span>: mọi sự cố ngoài ý muốn trong phạm vi bảo hiểm,
+                    số tiền tối đa khách thuê thanh toán là <a href="#" style="font-style: normal; font-weight: normal">2 triệu đồng</a>, chưa bao gồm:
+                </p>
+                <p>- Giảm trừ bồi thường/chế tài theo Quy tắc của Nhà bảo hiểm,</p>
+                <p>- Thiệt hại do xe không cho thuê được trong thời gian sửa chữa nếu có,</p>
+                <p>- Các lí do chủ quan khác nằm ngoài phạm vi bảo hiểm.</p>
+                <p>Quy tắc bảo hiểm MIC: Xem thêm tại <a href="#">liên kết</a></p>
+                <p>Quy tắc bảo hiểm VNI: Xem thêm tại <a href="#">liên kết</a></p>
+            </div>
+        </div>
+        <div class="content-items">
+            <h5 style="margin: 20px 0;font-weight: bold">III. Quy trình xử lí nếu xảy ra sự cố</h5>
+            <ol>
+                <li>Khách thuê <span>giữ nguyên hiện trường & chụp ảnh xe đang bị sự cố.</span></li>
+                <li>Khách thuê gọi đến trung tâm bồi thường của nhà bảo hiểm
+                    <span>tại thời điểm xảy ra sự cố (MIC - 1900 55 88 91), (VNI - 1900 96 96 90)</span>,
+                    đọc số hợp đồng bảo hiểm và làm theo hướng dẫn tổng đài.
+                </li>
+                <li>Giám định viên bảo hiểm liên hệ khách thuê để hướng dẫn xử lí,
+                    xác minh thông tin và xác minh hiện trường (nếu có).
+                </li>
+                <li>Giám định viên và chủ xe/khách thuê cùng mang xe ra Garage để
+                    giám định thiệt hại và ra <span>Báo giá sửa chữa</span>
+                </li>
+                <li>
+                    Trung tâm bồi thường của nhà bảo hiểm ra <span>Biên bản giám định</span> thiệt hại.
+                </li>
+                <li>
+                    Garage tiến hành sửa chữa theo báo giá.
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>
+</form>
+<div class="footer"></div>
+<script>
+    fetch('/header.html')
+        .then(response => response.text())
+        .then(html => {
+            document.querySelector('.header').innerHTML = html;
+        })
+        .catch(error => {
+            console.log('Lỗi khi tải footer.html:', error);
+        });
+    fetch('/footer.html')
+        .then(response => response.text())
+        .then(html => {
+            document.querySelector('.footer').innerHTML = html;
+        })
+        .catch(error => {
+            console.log('Lỗi khi tải footer.html:', error);
+        });
+
+
+</script>
+<script>
+    function openForm(formId) {
+        const forms = document.querySelectorAll('.form-popup');
+        forms.forEach(form => {
+            if (form.id === formId) {
+                form.style.display = 'block';
+            } else {
+                form.style.display = 'none';
+            }
+        });
+        document.getElementById('overlay').style.display = 'block';
+    }
+
+    function closeForm() {
+        const forms = document.querySelectorAll('.form-popup');
+        forms.forEach(form => {
+            form.style.display = 'none';
+        });
+        document.getElementById('overlay').style.display = 'none';
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        const swiper = new Swiper('.swiper-container', {
+            loop: true,
+            slidesPerView: 3,
+            spaceBetween: 20,
+            navigation: {
+                nextEl: '.next-ads',
+                prevEl: '.prev-ads',
+            },
+            breakpoints: {
+
+                1024: {
+                    slidesPerView: 3,
+                },
+                768: {
+                    slidesPerView: 2,
+                },
+                480: {
+                    slidesPerView: 1,
+                },
+            },
+        });
+    });
+
+</script>
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+</body>
+</html>

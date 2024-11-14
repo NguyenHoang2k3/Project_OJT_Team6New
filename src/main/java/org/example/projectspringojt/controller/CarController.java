@@ -34,7 +34,7 @@ public class CarController {
 //    }//    @GetMapping("/customer")
 
 
-    @GetMapping("home")
+    @GetMapping("/car/home")
     public String listCars(Model model) {
         model.addAttribute("cars", carRepository.findTop9ByOrderByCarIdDesc());
         return "/home";

@@ -2,6 +2,8 @@ package org.example.projectspringojt.repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+
 import org.example.projectspringojt.entity.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -37,4 +39,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
       "OR u.Dob LIKE %:searchText%  ")
   List<User> findByAllFields( String searchText);
 
+  Optional<User> findByUserName(String userName);
 }

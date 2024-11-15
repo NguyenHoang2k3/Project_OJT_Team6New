@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface CarRepository extends JpaRepository<Car, Integer> {
+
   @Query("SELECT u FROM Car u " +
       "WHERE u.name LIKE %:searchText% " +
       "OR u.brand LIKE %:searchText% " +

@@ -79,7 +79,7 @@ public class Car {
   @Enumerated(value = EnumType.STRING)
   private CarStatus carStatus;
 
-  @Column(name = "addressCarStatus", length = 50) //dua di hoac de tu lay
+  @Column(name = "AddressCarStatus", length = 50) //dua di hoac de tu lay
   private Boolean addressCarStatus;
 
   @Column(name = "VehicleRegistraiton", length = 5000)
@@ -93,8 +93,6 @@ public class Car {
 
   @Column(name = "reason", length = 255)
   private String reason;
-
-
 
   @OneToMany(mappedBy = "cars")
   private List<Order> orders;

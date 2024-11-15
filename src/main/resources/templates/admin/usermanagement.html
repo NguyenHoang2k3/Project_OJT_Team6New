@@ -4,22 +4,35 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Settings</title>
+  <title>UserManage</title>
   <link rel="stylesheet" th:href="@{/css/all.min.css}" />
   <link rel="stylesheet" th:href="@{/css/framework.css}" />
   <link rel="stylesheet" th:href="@{/css/master.css}" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500&display=swap" rel="stylesheet" />
-
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500&display=swap"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=directions_car" />
   <style>
 
-    .pagination-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 20px;
-    }g
+
+    .material-symbols-outlined {
+      font-variation-settings:
+          'FILL' 0,
+          'wght' 200,
+          'GRAD' 0,
+          'opsz' 24
+    }
+
+    /* fallback */
+    @font-face {
+      font-family: 'Material Symbols Outlined';
+      font-style: normal;
+      font-weight: 100 700;
+      src: url(https://fonts.gstatic.com/s/materialsymbolsoutlined/v215/kJEhBvYX7BgnkSrUwT8OhrdQw4oELdPIeeII9v6oFsI.woff2) format('woff2');
+    }
+
+
     .pagination {
       display: flex;
       list-style: none;
@@ -42,19 +55,59 @@
       background-color: #007bff;
       color: white;
     }
+
     .pagination .active {
       background-color: #007bff;
       color: white;
       border-color: #007bff;
     }
 
+       /* Pagination styles */
+     .pagination {
+       display: flex;
+       list-style: none;
+       padding: 0;
+       margin: 20px 0;
+       justify-content: center;
+     }
+
+    .pagination li {
+      margin: 0 5px;
+    }
+
+    .pagination a, .pagination span {
+      display: inline-block;
+      padding: 10px 15px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #007bff;
+      text-decoration: none;
+      border: 1px solid #007bff;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .pagination a:hover {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .pagination a:focus {
+      outline: none;
+      background-color: rgba(0, 123, 255, 0.2); /* Màu nền xanh nhạt bên trong đường viền */
+    }
+
+    .pagination .active a {
+      background-color: #007bff;
+      color: white;
+      border-color: #007bff;
+    }
   </style>
 </head>
 <body>
 <div class="page d-flex">
-  <iframe th:src="@{test}" >
+  <div th:replace="admin/sidebar :: sidebar"></div>
 
-  </iframe>
   <div class="content w-full">
 
     <h1 class="p-relative">User Management</h1>
@@ -65,15 +118,11 @@
       <div class="head bg-white p-15 between-flex">
         <h2 class="mt-0 mb-20">List Users</h2>
 
-        <form action="/admin/manageUser123" method="post">
-          <div class="search p-relative" style="display: none;">
-            <input class="p-10" type="search" name="txtSearch" placeholder="Type A Keyword" />
-          </div>
-        </form>
 
-        <form action="/admin/manageUser" method="post">
+
+        <form action="/admin/search">
           <div class="search p-relative">
-            <input class="p-10" type="search" name="txtSearch" placeholder="Type A Keyword" />
+            <input class="p-10" type="text" name="search" placeholder="Type A Keyword" />
           </div>
         </form>
       </div>
@@ -85,10 +134,11 @@
             <td class="w-10">User ID</td>
             <td>User Name</td>
             <td>Email</td>
-            <td>Access</td>
             <td>Role</td>
-            <td>Reason</td>
+            <td>Phone</td>
             <td>Time Ban</td>
+            <td>Reason</td>
+            <td>Access</td>
             <td>Action</td>
           </tr>
           </thead>
@@ -97,12 +147,24 @@
             <td th:text="${user.userID}"></td>
             <td th:text="${user.userName}"></td>
             <td th:text="${user.email}"></td>
+            <td th:text="${user.role}"></td>
+            <td th:text="${user.phone}"></td>
+            <td th:text="${user.timeBan}"></td>
+            <td th:text="${user.reason}"></td>
 <!--            <td th:utext=""></td>-->
 <!--            <td th:text="${user.roleId}"></td>-->
 <!--            <td th:text=""></td>-->
 <!--            <td th:text=""></td>-->
             <td>
-<!--              <a class="fa-regular fa-edit delete" style="cursor: pointer; color: black;" onmouseover="this.style.color = 'red'" onmouseout="this.style.color = 'black'" th:onclick="'confirmEdit(' + ${user.userID} + ')'"></a>-->
+  <span th:classappend="${user.status == T(org.example.projectspringojt.entity.StatusUser).Active} ? 'label btn-shape bg-green c-white' : 'label btn-shape bg-red c-white'">
+    <span th:text="${user.status == T(org.example.projectspringojt.entity.StatusUser).Active} ? 'Active' : 'Banned'"></span>
+</span>
+
+
+            </td>
+
+            <td>
+              <a class="fa-regular fa-edit delete" style="cursor: pointer; color: black;" onmouseover="this.style.color = 'red'" onmouseout="this.style.color = 'black'" th:href="@{/admin/manageUser/{userID}(userID=${user.userID})}"></a>
             </td>
           </tr>
           </tbody>
@@ -112,16 +174,20 @@
 
     <!-- Pagination Links -->
     <div class="pagination-container">
-<!--      <ul class="pagination">-->
-<!--        <li th:if="${currentPage > 1}"><a th:href="@{'?page=' + (${currentPage} - 1)}">Previous</a></li>-->
-<!--        <li th:each="i : ${#numbers.sequence(1, totalPages)}">-->
-<!--          <span th:if="${i == currentPage}" class="active" th:text="${i}"></span>-->
-<!--          <a th:if="${i != currentPage}" th:href="@{'?page=' + i}" th:text="${i}"></a>-->
-<!--        </li>-->
-<!--        <li th:if="${currentPage < totalPages}"><a th:href="@{'?page=' + (${currentPage})}">Next</a></li>-->
-<!--      </ul>-->
+      <ul class="pagination">
+        <!-- Page number buttons -->
+        <li th:each="i : ${#numbers.sequence(1, totalPages ?: 1)}" th:classappend="${i == currentPage} ? 'active'">
+          <a th:href="@{/admin/manageUser(index=${i}, size=${size})}" th:text="${i}"></a>
+        </li>
+      </ul>
     </div>
+
   </div>
+
+
+
+
+
 </div>
 
 <!--<script>-->

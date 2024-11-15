@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile</title>
+  <link rel="stylesheet" th:href="@{/css/all.min.css}" />
+  <link rel="stylesheet" th:href="@{/css/framework.css}" />
+  <link rel="stylesheet" th:href="@{/css/master.css}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+<div class="page d-flex">
+
+  <div th:replace="admin/sidebar :: sidebar"></div>
+
+  <div class="content w-full">
+    <!-- Start Head -->
+
+    <div>
+    </div>
+
+    <!-- End Head -->
+    <h1 class="p-relative">Infomation of Car <span th:text="${car.name}"></span></h1>
+    <div class="profile-page m-20">
+      <!-- Start Overview -->
+      <div class="overview bg-white rad-10 d-flex align-center">
+        <div class="avatar-box txt-c p-20">
+          <img class="rad-half mb-10" th:src="${car.image}" alt="Car Avatar" />
+
+          <h3 class="m-0" th:text="${car.name}"></h3>
+<!--          <p class="c-grey mt-10" th:text="${teacher.roleid.roleName}"></p>-->
+          <div class="level rad-6 bg-eee p-relative">
+            <span style="width: 70%"></span>
+          </div>
+          <div class="rating mt-10 mb-10">
+            <i class="fa-solid fa-star c-orange fs-13"></i>
+            <i class="fa-solid fa-star c-orange fs-13"></i>
+            <i class="fa-solid fa-star c-orange fs-13"></i>
+            <i class="fa-solid fa-star c-orange fs-13"></i>
+            <i class="fa-solid fa-star c-orange fs-13"></i>
+          </div>
+          <p class="c-grey m-0 fs-13">
+            <span th:if="${car.acpCarStatus}" class="label btn-shape bg-green c-white">Active</span>
+            <span th:if="${!car.acpCarStatus}" class="label btn-shape bg-red c-white">Inactive</span>
+          </p>
+        </div>
+        <div class="info-box w-full txt-c-mobile">
+          <!-- Start Information Row -->
+          <div class="box p-20 d-flex align-center">
+            <h2 style="color: black" class="c-grey fs-15 m-0 w-full">Information</h2>
+            <div class="fs-14">
+              <span style="color: black" class="c-grey">Car Name:</span>
+              <span th:text="${car.name}"></span>
+            </div>
+            <div class="fs-14">
+              <span style="color: black" class="c-grey">Price:</span>
+              <span th:text="${car.price}"></span>
+            </div>
+            <div class="fs-14">
+              <span style="color: black" class="c-grey">Rental Price:</span>
+              <span th:text="${car.rentalPrice}"></span>
+            </div>
+          </div>
+          <!-- End Information Row -->
+          <!-- Start Information Row -->
+          <div class="box p-20 d-flex align-center">
+            <h4 class="c-grey fs-15 m-0 w-full"></h4>
+            <div class="fs-14">
+              <span class="c-grey">Brand: </span>
+              <span th:text="${car.brand}"></span>
+            </div>
+            <div class="fs-14">
+              <span class="c-grey">Model::</span>
+              <span th:text="${car.model}"></span>
+            </div>
+            <div class="fs-14">
+              <span class="c-grey">Color:</span>
+              <span th:text="${car.model}"></span>
+            </div>
+          </div>
+          <div class="box p-20 d-flex align-center">
+            <h4 class="c-grey fs-15 m-0 w-full"></h4>
+            <div class="fs-14">
+              <span class="c-grey">FuelConsumption: </span>
+              <span th:text="${car.fuelConsumption}"></span>
+            </div>
+            <div class="fs-14">
+              <span class="c-grey">FuelType::</span>
+              <span th:text="${car.fuelType}"></span>
+            </div>
+            <div class="fs-14">
+              <span class="c-grey">NumberOfSeats:</span>
+              <span th:text="${car.numberOfSeats}"></span>
+            </div>
+          </div>
+          <div class="box p-20 d-flex align-center">
+            <h4 class="c-grey fs-15 m-0 w-full"></h4>
+            <div class="fs-14">
+              <span class="c-grey">TermOfUse: </span>
+              <span th:text="${car.termOfUse}"></span>
+            </div>
+            <div class="fs-14">
+              <span class="c-grey">LicensePlate::</span>
+              <span th:text="${car.licensePlate}"></span>
+            </div>
+          </div>
+
+            <div class="fs-15" style=" margin-left: 20px; margin-top: 20px; display: block">
+              <strong style="color: black" class="c-grey">Vehicle Registration:</strong>
+              <a th:href="${car.vehicleRegistration}" target="_blank" th:text="${car.vehicleRegistration}"></a>
+            </div>
+<!--            <br>-->
+<!--            <div class="fs-15" style="display: block;">-->
+<!--              <strong style="color: black" class="c-grey">TermOfUse:</strong>-->
+<!--              <a th:href="${car.termOfUse}" target="_blank" th:text="${car.termOfUse}"></a>-->
+<!--            </div>-->
+<!--            <br>-->
+<!--            <div class="fs-15" style="display: block;">-->
+<!--              <strong style="color: black" class="c-grey">LicensePlate:</strong>-->
+<!--              <a th:href="${car.licensePlate}" target="_blank" th:text="${car.licensePlate}"></a>-->
+<!--            </div>-->
+<!--          </div>-->
+          <!-- End Information Row -->
+          <!-- Start Information Row -->
+          <div class="box p-20 d-flex align-center">
+            <h4 class="c-grey w-full fs-15 m-0">User Information :</h4>
+            <div class="fs-14">
+              <span class="c-grey">User Name:</span>
+              <span th:text="${car.user.userName}"></span>
+            </div>
+            <div class="fs-14">
+              <span class="c-grey">Address:</span>
+              <span th:text="${car.user.address}"></span>
+            </div>
+            <div class="fs-14">
+              <span class="c-grey">Phone:</span>
+              <span th:text="${car.user.phone}"></span>
+<!--              <a th:href="${teacher.cv}" target="_blank" th:text="${teacher.cv}"></a>-->
+            </div>
+          </div>
+          <!-- End Information Row -->
+
+          <form action="/admin/ban2"  method="post">
+            <div class="box p-20 d-flex align-center">
+              <h4 class="c-grey w-full fs-15 m-0">Restrict user: <span th:text="${car.carId}"></span></h4>
+              <input type="hidden" th:value="${car.carId}" name="ID">
+
+              <div class="fs-14">
+                <span class="c-grey">Reason:</span>
+                <input type="text" name="reasonBan" th:value="${car.reason}" />
+              </div>
+
+              <div class="fs-14">
+                <span class="c-grey">Time:</span>
+                <input type="date" name="timeBan" th:value="${car.timeBan}" />
+              </div>
+            </div>
+          </form>
+
+          <!-- Form to Change Status of Teacher -->
+          <form action="/admin/ChangeStatusCarAcp" method="post">
+            <div class="box p-20 d-flex align-center">
+              <!-- Car ID -->
+              <input type="hidden" name="teacherid" th:value="${car.carId}">
+
+              <!-- Current Car Status (Boolean) -->
+              <input type="hidden" name="status" th:value="${car.acpCarStatus}">
+
+              <!-- Buttons to reject or approve -->
+              <div class="fs-14">
+                <button th:if="${car.acpCarStatus}" class="label btn-shape bg-red c-white" type="submit">Reject</button>
+                <button th:if="${!car.acpCarStatus}" class="label btn-shape bg-green c-white" type="submit">Approve</button>
+              </div>
+            </div>
+          </form>
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

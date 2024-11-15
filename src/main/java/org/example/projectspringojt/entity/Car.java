@@ -85,8 +85,20 @@ public class Car {
   @Column(name = "VehicleRegistration", length = 5000)
   private String vehicleRegistration;
 
+  @Column(name = "AcpCarStatus")
+  private Boolean AcpCarStatus;
+
+  @Column(name = "timeBan", length = 255)
+  private LocalDate timeBan;
+
+  @Column(name = "reason", length = 255)
+  private String reason;
+
   @OneToMany(mappedBy = "cars")
   private List<Order> orders;
+
+  @OneToMany(mappedBy = "cars")
+  private List<Amenitiess> amenitiess;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "User_ID")

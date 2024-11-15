@@ -1,8 +1,11 @@
 package org.example.projectspringojt.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.example.projectspringojt.entity.StatusUser;
 import org.example.projectspringojt.entity.User;
 import org.example.projectspringojt.repository.UserRepository;
 import org.springframework.data.domain.PageRequest;
@@ -43,5 +46,16 @@ public class UserService {
 //    }
 //    return userRepository.findByNameContainingOrEmailContaining(searchQuery, searchQuery);
 //  }
+
+  public void banUser(Long userId, String reason, LocalDate timeBan) {
+    Optional<User> userOptional = userRepository.findById(userId);
+    if (userOptional.isPresent()) {
+      User user = userOptional.get();
+      user.setStatus(StatusUser.Banned);
+      user.setReason(reason);
+      user.setTimeBan(timeBan);
+      userRepository.save(user);
+    }
+  }
 
 }

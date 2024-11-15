@@ -5,13 +5,17 @@ import jakarta.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.example.projectspringojt.entity.Car;
 import org.example.projectspringojt.entity.User;
+import org.example.projectspringojt.repository.CarRepository;
 import org.example.projectspringojt.repository.UserRepository;
+import org.example.projectspringojt.service.CarService;
 import org.example.projectspringojt.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,13 +30,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserManagementController {
   private final UserService userService;
   private final UserRepository userRepository;
+  private final CarRepository carRepository;
+  private final CarService carService;
   private static final int USERS_PER_PAGE = 10;
 
   // Display the User Management page
   @GetMapping("/manageUser")
   public String manageUsers(
       @RequestParam(value = "index", defaultValue = "1") Integer index,
-      @RequestParam(value = "size", defaultValue = "5") Integer size,
+      @RequestParam(value = "size", defaultValue = "8") Integer size,
       Model model
   ) {
     Pageable pageable = PageRequest.of(index-1,size);
@@ -46,6 +52,24 @@ public class UserManagementController {
     model.addAttribute("totalPages", pageUser.getTotalPages());
 
     return "/admin/usermanagement"; // Name of the Thymeleaf HTML template
+  }
+  @GetMapping("/acpCar")
+  public String acpCars(
+      @RequestParam(value = "index", defaultValue = "1") Integer index,
+      @RequestParam(value = "size", defaultValue = "8") Integer size,
+      Model model
+  ) {
+    Pageable pageable = PageRequest.of(index-1,size);
+
+    Page<Car> pageUser = carRepository.findAll(pageable);
+    List<Car> listCars = pageUser.getContent();
+
+    model.addAttribute("listCars", listCars);
+    model.addAttribute("currentPage", index);
+    model.addAttribute("size", size);
+    model.addAttribute("totalPages", pageUser.getTotalPages());
+
+    return "/admin/acpcar"; // Name of the Thymeleaf HTML template
   }
 //  @PostMapping("/admin/search")
 //  public String searchUsers(@RequestParam("searchQuery") String searchQuery, Model model) {
@@ -68,17 +92,34 @@ public class UserManagementController {
     return "/admin/usermanagement";
   }
 
+  @GetMapping("/search2")
+  public String search2( @RequestParam("search") String search,
+      Model model) {
+
+    List<Car> listCars =  carRepository.findByAllFields("%"+search+"%");
+    model.addAttribute("listCars", listCars);
+    return "/admin/acpcar";
+  }
+
   @GetMapping("/test")
   public String test() {
 
     return "/admin/sidebar";
   }
+
+  @GetMapping("/test2")
+  public String test2() {
+
+    return "/admin/userdeltail";
+  }
+
+
   // Handle user edit action
   @GetMapping("/profile")
   public String editUser(@RequestParam("userID") Long userId, Model model) {
     User user = userService.getUserById(userId);
     model.addAttribute("user", user);
-    return "userProfile";
+      return "userProfile";
   }
 
   @GetMapping("/manageUser/{userID}")
@@ -91,6 +132,43 @@ public class UserManagementController {
     model.addAttribute("user", createUser);
     return "/admin/userdeltail";
   }
+  @GetMapping("/acpCar/{carId}")
+  public String updateForm2(@PathVariable Integer carId, Model model) {
+    Car car = carRepository.findById(carId).orElseThrow(() -> {
+      throw new EntityNotFoundException("Not found entity with id: " + carId);
+    });
+    Car createUser = new Car();
+    BeanUtils.copyProperties(car, createUser);
+    model.addAttribute("car", createUser);
+    return "/admin/cardetail";
+  }
+
+  @PostMapping("/ban")
+  public String banUser(@RequestParam Long ID,
+      @RequestParam String reasonBan,
+      @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate timeBan) {
+    userService.banUser(ID, reasonBan, timeBan);
+    return "redirect:/admin/manageUser"; // Redirect to the appropriate page
+  }
+  @PostMapping("/ban2")
+  public String banCar(@RequestParam Integer ID,
+      @RequestParam String reasonBan,
+      @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate timeBan) {
+    carService.rejectCar(ID, reasonBan, timeBan);
+    return "redirect:/admin/acpCar";
+  }
+
+  @PostMapping("/ChangeStatusCarAcp")
+  public String changeCarStatus(
+      @RequestParam Integer carId,
+      @RequestParam Boolean status) {
+
+    carService.changeCarStatus(carId, status);
+
+    // Redirect back to the appropriate page after status change
+    return "redirect:/admin/acpCar";
+  }
+
 
 
 

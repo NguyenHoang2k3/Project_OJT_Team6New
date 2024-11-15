@@ -55,21 +55,18 @@
       background-color: #007bff;
       color: white;
     }
-
     .pagination .active {
       background-color: #007bff;
       color: white;
       border-color: #007bff;
     }
-
-       /* Pagination styles */
-     .pagination {
-       display: flex;
-       list-style: none;
-       padding: 0;
-       margin: 20px 0;
-       justify-content: center;
-     }
+    .pagination {
+      display: flex;
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+      justify-content: center;
+    }
 
     .pagination li {
       margin: 0 5px;
@@ -102,6 +99,9 @@
       color: white;
       border-color: #007bff;
     }
+
+
+
   </style>
 </head>
 <body>
@@ -110,61 +110,58 @@
 
   <div class="content w-full">
 
-    <h1 class="p-relative">User Management</h1>
+    <h1 class="p-relative">Car Management</h1>
 
     <!-- Start Projects Table -->
     <div class="projects p-20 bg-white rad-10 m-20">
 
       <div class="head bg-white p-15 between-flex">
-        <h2 class="mt-0 mb-20">List Users</h2>
+        <h2 class="mt-0 mb-20">List Cars</h2>
 
-
-
-        <form action="/admin/search">
+        <form action="/admin/search2">
           <div class="search p-relative">
             <input class="p-10" type="text" name="search" placeholder="Type A Keyword" />
           </div>
         </form>
+
+
       </div>
 
       <div class="responsive-table">
         <table class="fs-14 w-full">
           <thead>
           <tr>
-            <td class="w-10">User ID</td>
-            <td>User Name</td>
-            <td>Email</td>
-            <td>Role</td>
-            <td>Phone</td>
-            <td>Time Ban</td>
-            <td>Reason</td>
-            <td>Access</td>
+            <td class="w-10">Car ID</td>
+            <td>Car Name</td>
+            <td>Production Years</td>
+            <td>Brand</td>
+            <td>Model</td>
+            <td>Color</td>
+            <td>Car Status</td>
+            <td>Acp Car Status</td>
             <td>Action</td>
           </tr>
           </thead>
           <tbody>
-          <tr th:each="user : ${listUsers}">
-            <td th:text="${user.userID}"></td>
-            <td th:text="${user.userName}"></td>
-            <td th:text="${user.email}"></td>
-            <td th:text="${user.role}"></td>
-            <td th:text="${user.phone}"></td>
-            <td th:text="${user.timeBan}"></td>
-            <td th:text="${user.reason}"></td>
-<!--            <td th:utext=""></td>-->
-<!--            <td th:text="${user.roleId}"></td>-->
-<!--            <td th:text=""></td>-->
-<!--            <td th:text=""></td>-->
+          <tr th:each="user : ${listCars}">
+            <td th:text="${user.carId}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.productionYears}"></td>
+            <td th:text="${user.brand}"></td>
+            <td th:text="${user.model}"></td>
+            <td th:text="${user.color}"></td>
+            <td th:text="${user.carStatus}"></td>
+            <!--            <td th:utext=""></td>-->
+            <!--            <td th:text="${user.roleId}"></td>-->
+            <!--            <td th:text=""></td>-->
+            <!--            <td th:text=""></td>-->
             <td>
-  <span th:classappend="${user.status == T(org.example.projectspringojt.entity.StatusUser).Active} ? 'label btn-shape bg-green c-white' : 'label btn-shape bg-red c-white'">
-    <span th:text="${user.status == T(org.example.projectspringojt.entity.StatusUser).Active} ? 'Active' : 'Banned'"></span>
+            <span th:classappend="${user.acpCarStatus == true} ? 'label btn-shape bg-green c-white' : 'label btn-shape bg-red c-white'">
+    <span th:text="${user.acpCarStatus == true} ? 'Active' : 'Non-Active'"></span>
 </span>
-
-
             </td>
-
             <td>
-              <a class="fa-regular fa-edit delete" style="cursor: pointer; color: black;" onmouseover="this.style.color = 'red'" onmouseout="this.style.color = 'black'" th:href="@{/admin/manageUser/{userID}(userID=${user.userID})}"></a>
+              <a class="fa-regular fa-edit delete" style="cursor: pointer; color: black;" onmouseover="this.style.color = 'red'" onmouseout="this.style.color = 'black'" th:href="@{/admin/acpCar/{carId}(carId=${user.carId})}"></a>
             </td>
           </tr>
           </tbody>
@@ -177,17 +174,11 @@
       <ul class="pagination">
         <!-- Page number buttons -->
         <li th:each="i : ${#numbers.sequence(1, totalPages ?: 1)}" th:classappend="${i == currentPage} ? 'active'">
-          <a th:href="@{/admin/manageUser(index=${i}, size=${size})}" th:text="${i}"></a>
+          <a th:href="@{/admin/acpCar(index=${i}, size=${size})}" th:text="${i}"></a>
         </li>
       </ul>
     </div>
-
   </div>
-
-
-
-
-
 </div>
 
 <!--<script>-->

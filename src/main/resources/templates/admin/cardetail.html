@@ -165,18 +165,22 @@
           <form action="/admin/ChangeStatusCarAcp" method="post">
             <div class="box p-20 d-flex align-center">
               <!-- Car ID -->
-              <input type="hidden" name="teacherid" th:value="${car.carId}">
+              <input type="hidden" name="carId" th:value="${car.carId}">
 
               <!-- Current Car Status (Boolean) -->
-              <input type="hidden" name="status" th:value="${car.acpCarStatus}">
+              <input type="hidden" name="status" th:value="${car.acpCarStatus ? 'false' : 'true'}">
 
               <!-- Buttons to reject or approve -->
               <div class="fs-14">
+                <!-- If current status is true, show "Reject" button that sets status to false -->
                 <button th:if="${car.acpCarStatus}" class="label btn-shape bg-red c-white" type="submit">Reject</button>
+
+                <!-- If current status is false, show "Approve" button that sets status to true -->
                 <button th:if="${!car.acpCarStatus}" class="label btn-shape bg-green c-white" type="submit">Approve</button>
               </div>
             </div>
           </form>
+
 
 
 

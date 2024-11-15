@@ -34,7 +34,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
       "OR u.address LIKE %:searchText% " +
       "OR u.email LIKE %:searchText% " +
       "OR u.phone LIKE %:searchText% " +
-      "OR u.Dob LIKE %:searchText%  ")
+      "OR u.Dob LIKE %:searchText% " +
+      "OR CAST(u.role AS string) LIKE %:searchText%")
   List<User> findByAllFields( String searchText);
 
 }

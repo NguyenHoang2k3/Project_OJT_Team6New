@@ -16,6 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.cglib.core.Local;
 
 @Data
 @Entity
@@ -65,8 +66,18 @@ public class User {
   @Column(name = "Avatar", length = 5000)
   private String avatar;
 
+  @Column(name = "gender", length = 255)
+  private String gender;
+
+  @Column(name = "timeBan", length = 255)
+  private LocalDate timeBan;
+
+  @Column(name = "reason", length = 255)
+  private String reason;
+
   @OneToMany(mappedBy = "user")
   private List<Order> orders = new ArrayList<Order>();
+
 
   @OneToMany(mappedBy = "user")
   private List<TicketsDiscount> ticketsDiscounts;

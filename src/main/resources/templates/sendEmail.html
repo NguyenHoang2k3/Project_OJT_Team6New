@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Quên Mật khẩu</title>
+  <style>
+    /* Định dạng tổng thể */
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f7f7f7; /* Màu nền */
+    }
+
+    .container {
+      width: 300px;
+      padding: 20px;
+      background-color: white; /* Nền hộp */
+      border-radius: 10px; /* Bo tròn góc */
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: black;
+    }
+
+    p {
+      font-size: 14px;
+      color: #666; /* Màu chữ */
+      margin-bottom: 20px;
+    }
+
+    input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ddd; /* Viền hộp */
+      border-radius: 5px; /* Bo tròn góc */
+      box-sizing: border-box; /* Đảm bảo padding không làm rộng hộp */
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50; /* Màu nền nút */
+      color: white; /* Màu chữ nút */
+      border: none;
+      border-radius: 5px; /* Bo tròn góc */
+      cursor: pointer; /* Con trỏ khi hover */
+      font-size: 16px; /* Kích thước chữ */
+      transition: background-color 0.3s; /* Hiệu ứng chuyển màu */
+    }
+
+    button:hover {
+      background-color: #45a049; /* Màu khi hover */
+    }
+
+    p.error {
+      color: red; /* Màu cho thông báo lỗi */
+    }
+
+    p.success {
+      color: green; /* Màu cho thông báo thành công */
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>Quên Mật khẩu</h2>
+  <p>Vui lòng nhập email của bạn để nhận mã xác minh.</p>
+  <form th:action="@{/verify-email}" method="post">
+    <input type="email" id="email" name="email" placeholder="Email" required>
+    <button type="submit">Tiếp Tục</button>
+  </form>
+  <p th:text="${message}" class="success"></p>
+  <p th:text="${error}" class="error"></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings</title>
+  <link rel="stylesheet" th:href="@{/css/all.min.css}" />
+  <link rel="stylesheet" th:href="@{/css/framework.css}" />
+  <link rel="stylesheet" th:href="@{/css/master.css}" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      display: flex;
+    }
+
+    .sidebar {
+      height: 100vh;
+      width: 250px;
+    }
+
+    /* Material symbols style */
+    .material-symbols-outlined {
+      font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
+      vertical-align: middle;
+      margin-right: 5px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header h1 {
+      margin: 0;
+    }
+    .header button {
+      margin-right: 20px;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+<!-- sidebar start -->
+<div class="sidebar bg-white p-20 p-relative">
+  <h3 class="p-relative txt-c mt-0"><a href="<%=url%>/">ADMIN</a></h3>
+  <form method="get" action="Logout">
+    <button class="label btn-shape bg-green c-white" style="margin-left: 43px;">
+      <span class="material-symbols-outlined">logout</span>Logout
+    </button>
+  </form>
+  <ul>
+    <li>
+      <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="AdminManage">
+        <i class="fa-regular fa-user fa-fw"></i>
+        <span>AD management</span>
+      </a>
+    </li>
+    <li>
+      <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="AdminManageUser">
+        <i class="fa-regular fa-user fa-fw"></i>
+        <span>User management</span>
+      </a>
+    </li>
+    <li>
+      <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="AdminCourseManagement">
+        <i class="fa-solid fa-graduation-cap fa-fw"></i>
+        <span>Approve Car</span>
+      </a>
+    </li>
+    <li>
+      <a class="d-flex align-center fs-14 c-black rad-6 p-10" href="AdminManageTeacher">
+        <i class="fa-regular fa-circle-user fa-fw"></i>
+        <span>Approve Car's Owner</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<!-- end sidebar -->
+</body>
+</html>

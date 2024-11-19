@@ -82,7 +82,7 @@ public class Car {
   @Column(name = "AddressCarStatus", length = 50) //dua di hoac de tu lay
   private Boolean addressCarStatus;
 
-  @Column(name = "VehicleRegistration", length = 5000)
+  @Column(name = "VehicleRegistration", columnDefinition = "TEXT")
   private String vehicleRegistration;
 
   @Column(name = "AcpCarStatus")

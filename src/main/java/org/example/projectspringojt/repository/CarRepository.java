@@ -1,3 +1,5 @@
+package org.example.projectspringojt.repository;
+
 import org.example.projectspringojt.entity.Car;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

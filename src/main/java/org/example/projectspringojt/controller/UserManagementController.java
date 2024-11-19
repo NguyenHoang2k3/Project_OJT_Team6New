@@ -11,6 +11,7 @@ import org.example.projectspringojt.repository.CarRepository;
 import org.example.projectspringojt.repository.UserRepository;
 import org.example.projectspringojt.service.CarService;
 import org.example.projectspringojt.service.UserService;
+import org.example.projectspringojt.service.impl.CarServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,7 +32,7 @@ public class UserManagementController {
   private final UserService userService;
   private final UserRepository userRepository;
   private final CarRepository carRepository;
-  private final CarService carService;
+  private final CarServiceImpl carService;
   private static final int USERS_PER_PAGE = 10;
 
   // Display the User Management page

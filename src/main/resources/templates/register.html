@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <style>
+        /* General body styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Centered form container with increased width */
+        .form-container {
+            background-color: white;
+            width: 450px; /* Increased width */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding-right: 10px;
+
+        }
+
+        /* Header styling */
+        .form-header {
+            background-color: #00ba6c;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            width: 420px;
+        }
+
+        /* Form styling */
+        form {
+            padding: 20px;
+        }
+
+        /* Label styling */
+        label {
+            font-size: 14px;
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+
+        }
+        form {
+            padding-top: 20px; /* Adds some space between the header and form fields */
+        }
+
+        /* Input styling with increased spacing */
+        input[type="text"],
+        input[type="email"],
+        input[type="date"],
+        input[type="number"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px; /* Increased spacing */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        /* Button styling */
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #00ba6c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #006b9e;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <div class="form-header">Đăng ký tài khoản</div>
+    <form th:action="@{/register}" th:object="${user}" method="post" onsubmit="return validatePassword()">
+        <label for="customerName">Tên:</label>
+        <input type="text" th:field="*{userName}" id="customerName" placeholder="Name" required />
+
+        <label for="email">Email:</label>
+        <input type="email" th:field="*{email}" id="email" placeholder="Email" required />
+
+        <label for="password">Mật khẩu:</label>
+        <input type="password" th:field="*{password}" id="password" placeholder="Password" required />
+
+        <label for="rePassword">Xác nhận mật khẩu:</label>
+        <input type="password" id="rePassword" placeholder="Re-Password" required />
+
+        <label for="phone">Số điện thoại:</label>
+        <input type="text" th:field="*{phone}" id="phone" placeholder="Phone Number" required />
+
+        <label for="address">Nhập địa chỉ:</label>
+        <input type="text" th:field="*{address}" id="address" placeholder="Address" />
+
+        <button type="submit">TẠO TÀI KHOẢN</button>
+    </form>
+</div>
+
+<script>
+    function validatePassword() {
+        const password = document.getElementById("password").value;
+        const rePassword = document.getElementById("rePassword").value;
+
+        if (password !== rePassword) {
+            alert("Passwords do not match!");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mã Khuyến Mãi</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+    .container {
+      padding: 20px;
+    }
+    .summary {
+      margin-top: 20px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .summary-item.total {
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .discount-container {
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+    .discount-link {
+      cursor: pointer;
+      color: #28a745;
+      text-decoration: underline;
+    }
+    .discount-name {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .discount-value {
+      text-align: right;
+    }
+
+    /* Modal Popup */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+    }
+    .popup-content {
+      background-color: white;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 5px;
+      width: 80%;
+      max-width: 500px;
+      position: relative;
+    }
+    .popup-header {
+      font-size: 18px;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      color: #333;
+      cursor: pointer;
+    }
+    .discount-list {
+      list-style: none;
+      padding: 0;
+    }
+    .discount-item {
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .apply-btn {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .apply-btn:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Danh Sách Mã Khuyến Mãi</h1>
+
+  <p th:if="${error}" th:text="${error}" style="color: red;"></p>
+
+  <div class="summary">
+    <div class="summary-item">
+      <span>Đơn giá thuê</span>
+      <span>858,704đ/ngày</span>
+    </div>
+    <div class="summary-item">
+      <span>Bảo hiểm thuê xe</span>
+      <span>84,524đ/ngày</span>
+    </div>
+    <div class="summary-item">
+      <span>Tổng cộng</span>
+      <span>943,228đ</span>
+    </div>
+
+    <!-- Discount item on the same line -->
+    <div class="summary-item discount-container">
+      <div class="discount-name">
+        <span class="discount-link" onclick="openPopup()">Mã Khuyến Mãi</span>
+        <span th:if="${selectedDiscount != null}" th:text="' : ' + ${selectedDiscount.ticketsName}"></span>
+      </div>
+      <div class="discount-value">
+        <span th:if="${selectedDiscount != null}" th:text="'-' + (${selectedDiscount.discount * 943228 / 100}) + 'đ'"></span>
+      </div>
+    </div>
+
+    <!-- Total price item -->
+    <div class="summary-item total">
+      <span>Thành tiền</span>
+      <span th:text="${selectedDiscount != null ? (943228 - (selectedDiscount.discount * 943228 / 100)) + 'đ' : '943,228đ'}"></span>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Popup -->
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <span class="close-btn" onclick="closePopup()">×</span>
+    <div class="popup-header">Mã Khuyến Mãi</div>
+    <div class="discount-list">
+      <div th:each="discount : ${discounts}" class="discount-item">
+        <div>
+          <span th:text="${discount.ticketsName}"></span>
+          <span th:text="' - ' + ${discount.discount} + '%'">Giảm giá</span>
+        </div>
+        <form th:action="@{/discounts}" method="post">
+          <input type="hidden" name="code" th:value="${discount.ticketsName}" />
+          <button type="submit" class="apply-btn">Áp dụng</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openPopup() {
+    document.getElementById("popup").style.display = "block"; // Open popup
+  }
+
+  function closePopup() {
+    document.getElementById("popup").style.display = "none"; // Close popup
+  }
+</script>
+</body>
+</html>

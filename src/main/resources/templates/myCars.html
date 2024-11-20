@@ -4,22 +4,55 @@
     <meta charset="UTF-8">
     <title>view</title>
     <link rel="stylesheet" href="/mycars.css">
+    <link rel="stylesheet" href="/orderList.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
+<style>
+    html{
+        scroll-behavior: smooth;
+    }
+</style>
 <body>
-<div class="header"></div>
+<header>
+    <div class="logo">
+        <a href="/home" style="padding: 0">
+            <img src="https://nuoixe.vn/storage/uploads/logo-cac-hang-xe-o-to/Logo-hang-xe-oto-vauxhall.png">
+        </a>
+        <h1>Mioto</h1>
+    </div>
+    <div class="content-action">
+        <nav>
+            <ul>
+                <li><a href="#">Về Mioto</a></li>
+                <li><a href="#">Trở thành chủ xe</a></li>
+                <!--            người có tài khoản là hiện ra cái này-->
+                <li><a href="#chuyen-cua-toi">Chuyến xe của tôi</a></li>
+<!--                &lt;!&ndash;            Chỉ có Car owner là có&ndash;&gt;-->
+                <li><a href="#xe-cua-toi">Xe của tôi</a></li>
+            </ul>
+        </nav>
+        <div class="actions" id="actions" style="display: none">
+            <a href="#" id="register">Đăng ký</a>
+            <a href="/login" id="login">Đăng nhập</a>
+        </div>
+        <div class="info-user" id="info-user">
+            <img src="https://img.lovepik.com/png/20231031/User-avatar-placeholder-black-profile-picture-color-block-simple_430101_wh860.png">
+            <a href="#">Tên người dùng</a>
+            <div class="dropdown-icon">▼</div>
+        </div>
+    </div>
+</header>
 <div class="container">
     <h2 style="color: #00c16e">Xin chào bạn!</h2>
     <div class="box-content">
         <div class="choose-item">
             <ul>
-                <li class="choose-item-active" data-info="Thông tin tài khoản của tôi"><i class="fas fa-user"></i>Tài khoản của tôi</li>
-                <li data-info="Xe yêu thích của tôi"><i class="fas fa-heart"></i>Xe yêu thích</li>
-                <li id="xe-cua-toi" data-info="Danh sách xe cho thuê"><i class="fas fa-car"></i> Xe của tôi</li>
-                <li id="chuyen-cua-toi" data-info="Chuyến của tôi"><i class="fas fa-paper-plane"></i>Chuyến của tôi</li>
-                <li data-info="Đơn hàng thuê xe đã hoàn"><i class="fas fa-shopping-bag"></i>Đơn hàng Thuê xe đã hoàn</li>
+                <li class="choose-item-active" data-info="Thông tin tài khoản của tôi" style="cursor: pointer"><i class="fas fa-user"></i>Tài khoản của tôi</li>
+                <li data-info="Xe yêu thích của tôi" style="cursor: pointer"><i class="fas fa-heart"></i>Xe yêu thích</li>
+                <li id="xe-cua-toi" data-info="Danh sách xe cho thuê" style="cursor: pointer"><i class="fas fa-car"></i> Xe của tôi</li>
+                <li id="chuyen-cua-toi" data-info="List Booking" style="cursor: pointer"><i class="fas fa-paper-plane"></i>List Booking</li>
             </ul>
         </div>
         <div class="detailed-information">
@@ -41,10 +74,147 @@
                    List sẽ hiển thị đây
                </div>
             </div>
+           <div id="choose-status" style="display: none;">
+            <div style="display: flex; gap: 380px">
+                <form action="/myCars" method="get">
+                    <select class="form-control" style="width: 200px; border-radius: 15px" name="status" onchange="this.form.submit()">
+                        <option value="" disabled selected>-- Select Status --</option>
+                        <option value="ALL" th:selected="${status == 'ALL'}">All</option>
+                        <option value="DONE" th:selected="${status == 'DONE'}">Done</option>
+                        <option value="PROGRESS" th:selected="${status == 'PROGRESS'}">Progress</option>
+                        <option value="CANCELLED" th:selected="${status == 'CANCELLED'}">Cancelled</option>
+                    </select>
+                </form>
+
+                <form action="/myCars">
+                <div class="search-container">
+                    <input type="text" name="search" id="searchQuery" th:value="${param.search}" placeholder="Tìm kiếm..."
+                           class="search-input" style="border-radius: 15px; padding: 8px; border: 0"/>
+                    <i class="fas fa-search search-icon" style="color: #00c16e"></i>
+                </div>
+                </form>
+            </div>
+           </div>
+            <div th:if="${notification}" class="alert alert-danger"
+                 style="margin-top: 20px; text-align: center;
+                  padding: 10px; margin-bottom: 0;">
+                <p th:text="${notification}" style="margin-bottom: 0"></p>
+            </div>
+            <div id="order-list" style="display: none;">
+                <div class="responsive-booking" style="display: flex; gap: 20px">
+                    <div class="booking-content" th:each="order :${orders}">
+                        <div class="image-car">
+                            <img th:src="@{/ImageProject/{imageName}(imageName=${order.cars.image})}" alt="Car">
+                        </div>
+                        <div class="Name_and_address">
+                            <p th:text="${order.cars.name}"></p>
+                            <div style="display: flex">
+                                <i class="fas fa-map-marker-alt" style="margin-right: 10px; color: #00c16e"></i>
+                                <p th:text="${order.sh_address}"></p>
+                            </div>
+                        </div>
+                        <div class="date-booking">
+                            <i class="fas fa-calendar" style="color: #00c16e;margin-top: 3px"></i>
+                            <p th:text="${order.orderStartDate}" style="margin-right: 10px"></p>
+                            <p>-</p>
+                            <p th:text="${order.orderEndDate}" style="margin-left: 10px"></p>
+                        </div>
+                        <div class="price-booking">
+                            <p th:text="${order.orderPrice}"></p>
+                            <a th:href="@{/ChangeStatusOrder(orderId = ${order.orderId})}"
+                               th:text="${order.status}"
+                               th:style="'text-decoration: none; color: ' +
+                                    (${order.status.toString()} == 'CANCELLED' ? 'red' : (${order.status.toString()}  == 'DONE' ? 'green' : 'gray'))">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="paging-order" style="display: flex; margin-top: 20px; gap: 20px; justify-content: center">
+                    <div class="paging-prev">
+                        <a href="#"
+                           th:href="@{/myCars(page=${currentPage - 1}, size=${size}, search=${search}, status=${status})}"
+                           th:classappend="${currentPage == 1} ? 'disabled'"
+                           th:style="'pointer-events: ' + (${currentPage == 1} ? 'none' : 'auto') + '; color: inherit;'">
+                            <span>&lt;</span>
+                        </a>
+                    </div>
+
+
+                    <div class="paging-pages" style="display: flex; gap: 10px; align-items: center">
+                        <div th:each="i : ${#numbers.sequence(1, totalPages)}">
+                            <a th:href="@{/myCars(page=${i}, size=${size}, search=${search}, status=${status})}"
+                               th:text="${i}"
+                               class="page-link"
+                               th:style="'text-decoration: none; color: inherit;border-radius: 20px;' + (${i == currentPage} ? 'background-color: #00c16e; color: white; border-radius: 20px;' : '')">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="paging-next">
+                        <a href="#"
+                           th:href="@{/myCars(page=${currentPage + 1}, size=${size}, search=${search}, status=${status})}"
+                           th:classappend="${currentPage == totalPages} ? 'disabled'"
+                           th:style="'pointer-events: ' + (${currentPage == totalPages} ? 'none' : 'auto') + '; color: inherit;'">
+                            <span>&gt;</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
-<footer class="footer"></footer>
+<footer class="footer">
+    <div class="content-footer">
+        <div class="content-footer-1">
+            <div class="footer-logo">
+                <img src="https://nuoixe.vn/storage/uploads/logo-cac-hang-xe-o-to/Logo-hang-xe-oto-vauxhall.png">
+                <h1 style="margin-top: 12px">Mioto</h1>
+            </div>
+            <div class="footer-contact">
+                <p>1900 9217</p>
+                <p>Tổng đài hỗ trợ: 7AM - 10PM</p>
+                <p>Email: <a href="mailto:contact@mioto.vn">contact@mioto.vn</a></p>
+            </div>
+            <div class="footer-bottom">
+                <p>© Công ty Cổ phần Mioto Asia</p>
+                <p>Địa chỉ: Văn phòng 02, Tầng 08, Tòa nhà Pearl Plaza, Số 561A Điện Biên Phủ, Phường 25, Quận Bình Thạnh, Thành phố Hồ Chí Minh, Việt Nam.</p>
+                <p>Ngày cấp: 24-05-22 | Nơi cấp: Sở Kế hoạch và Đầu tư TPHCM</p>
+                <p>Số tài khoản: 102-989-1989 tại Ngân hàng Vietcombank - CN Tân Định</p>
+            </div>
+            <div class="footer-icons">
+                <img src="https://scontent.fhan20-1.fna.fbcdn.net/v/t39.30808-6/352757343_1879233049125660_4727560855644771929_n.jpg?_nc_cat=1&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeEQEKBZq8FsxvwVh30ACweqp5MwGKmZw8unkzAYqZnDy-ku7OL4H2AUiP2VOksZSDZeCCtC7QDC3j3fI1uMSK_S&_nc_ohc=mFUKbDh-iHoQ7kNvgGTvyNk&_nc_zt=23&_nc_ht=scontent.fhan20-1.fna&_nc_gid=AyBLyq_De5QSTipOJklSWVs&oh=00_AYAmG8FR__AqULTxU2qWtDs2TNqGS5qtpoP_062d1Ecxpg&oe=6722E875"><p>Momo</p>
+                <img src="https://scontent.fhan20-1.fna.fbcdn.net/v/t39.30808-6/202166185_2021396718013233_8499389898242103910_n.png?_nc_cat=1&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGXfwr1F9vImm3nSLFiCmpqKwdd0u08Nc0rB13S7Tw1zWgkCcZ5JXtG7sd1RVTmArF0tp5Cizrtg6Ys4Y3kqOjK&_nc_ohc=5BY7UHAHNU4Q7kNvgFK3OT0&_nc_zt=23&_nc_ht=scontent.fhan20-1.fna&_nc_gid=AnWnPxLa54PnXyZ70Yhemmr&oh=00_AYBxG_C1ZkLuNw2gthXE0HeO-ZPQNWOZ2FQyMZZEQp0tCw&oe=6722DAA9"><p>VNPay</p>
+                <img src="https://ktpdesign.vn/wp-content/uploads/2020/12/LogoVittel.jpg"><p>Viettel</p>
+                <img src="https://hochieuvisa.vn/wp-content/uploads/2018/01/visa-mastercard-agree-to-give-gas-pumps-break-on-emv-shift-showcase_image-9-p-2335.jpg"><p>Visa</p>
+                <img src="https://play-lh.googleusercontent.com/woYAzPCG1I8Z8HXCsdH3diL7oly0N8uth_1g6k7R_9Gu7lbxrsYeriEXLecRG2E9rP0=w480-h960-rw"><p>ZaloPay</p>
+                <img src="https://mangviettel.com.vn/wp-content/uploads/2022/04/viettel-money-1.png">
+            </div>
+        </div>
+        <div class="footer-nav">
+            <div>
+                <p><strong>Chính Sách</strong></p>
+                <a href="#">Chính sách và quy định</a>
+                <a href="#">Quy chế hoạt động</a>
+                <a href="#">Bảo mật thông tin</a>
+                <a href="#">Giải quyết tranh chấp</a>
+            </div>
+            <div>
+                <p><strong>Tìm Hiểu Thêm</strong></p>
+                <a href="#">Hướng dẫn chung</a>
+                <a href="#">Hướng dẫn đặt xe</a>
+                <a href="#">Hướng dẫn thanh toán</a>
+                <a href="#">Hỏi và trả lời</a>
+            </div>
+            <div>
+                <p><strong>Đối Tác</strong></p>
+                <a href="#">Đăng ký chủ xe Mioto</a>
+                <a href="#">Đăng ký GPS MITRACK 4G</a>
+                <a href="#">Đăng ký cho thuê xe dài hạn MICAR</a>
+            </div>
+        </div>
+    </div>
+</footer>
 <script>
     fetch('/header.html')
         .then(response => response.text())
@@ -63,50 +233,6 @@
             console.log('Lỗi khi tải footer.html:', error);
         });
 </script>
-<script>
-    const chooseItems = document.querySelectorAll('.choose-item li');
-    const infoContent = document.getElementById('info-content');
-    const addCarContainer = document.getElementById('add-car-container');
-    const addCarContainer1 = document.getElementById('add-car-container1');
-
-    const savedItemId = localStorage.getItem('selectedItemId');
-
-    chooseItems.forEach(item => {
-        item.addEventListener('click', () => {
-            chooseItems.forEach(i => i.classList.remove('choose-item-active'));
-
-            item.classList.add('choose-item-active');
-
-            infoContent.textContent = item.getAttribute('data-info');
-
-            if (item.id === "xe-cua-toi") {
-                addCarContainer.style.display = 'block';
-                addCarContainer1.style.display = 'block';
-            } else {
-                addCarContainer.style.display = 'none';
-                addCarContainer1.style.display = 'none';
-            }
-
-            localStorage.setItem('selectedItemId', item.id);
-        });
-    });
-
-    window.onload = function() {
-        if (window.location.hash) {
-            const targetElement = document.getElementById(window.location.hash.substring(1));
-            if (targetElement) {
-
-                targetElement.click();
-            }
-        }
-        else if (savedItemId) {
-            const savedItem = document.getElementById(savedItemId);
-            if (savedItem) {
-                savedItem.click();
-            }
-        }
-    };
-
-</script>
+<script src="/rentalCar.js"></script>
 </body>
 </html>

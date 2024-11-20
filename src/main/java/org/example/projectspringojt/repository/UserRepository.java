@@ -41,4 +41,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
   List<User> findByAllFields( String searchText);
 
   Optional<User> findByUserName(String userName);
+
 }

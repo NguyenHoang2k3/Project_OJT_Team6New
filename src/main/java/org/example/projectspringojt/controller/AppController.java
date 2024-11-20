@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @RequiredArgsConstructor
-public class HomeController {
+public class AppController {
     @GetMapping("/login")
     public String getLoginPage() {
         return "login";
@@ -18,9 +18,12 @@ public class HomeController {
         return "carDetail";
     }
 
-    @GetMapping("/myCars")
-    public String getMyCars() {
-        return "myCars";
-    }
+//    @GetMapping("/myCars")
+//    public String getMyCars() {
+//        return "myCars";
+//    }
+
+
+
 
 }

@@ -368,7 +368,7 @@ th {
     font-size: 16px;
     font-weight: bold;
 }
-button{
+.choose-rental{
     padding: 16px 105px;
     border-radius: 10px;
     border: none;
@@ -416,7 +416,7 @@ button{
 .close {
     position: absolute;
     top: 15px;
-    left: 80%;
+    left: 93%;
     background-color: transparent;
     border: none;
     font-size: 30px;
@@ -653,6 +653,98 @@ button{
     cursor: pointer;
     color: #00c16e;
 }
+.confirm{
+    display: flex;
+    margin-top: 30px;
+    border-top: 1px solid lightgray;
+}
+.column {
+    width: 50%;
+    padding: 20px;
+}
+#formConfirm{
+    width: 740px;
+    overflow-x: hidden;
+}
+.information-main{
+    margin-top: 20px;
+}
+.confirm .column:nth-child(1) .information-main img{
+    width: 200px;
+    border-radius: 20px;
+}
+.confirm .column:nth-child(1) .information-main span{
+    font-weight: normal;
+}
+.confirm .column:nth-child(1) .information-main p{
+    margin: 15px 0;
+}
+.confirm .column:nth-child(2){
+    background: #5fcf86;
+    margin-top: 20px;
+    border-radius: 20px;
+}
+.form-group {
+    margin: 10px 0;
+}
+.form-group input{
+    background: lightgreen;
+    border-radius: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+}
+input:focus {
+    border: none;
+    outline: none;
+}
+
+
+.info-date {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.date-field {
+    width: 145px;
+}
+.date-field input{
+    background: lightgreen;
+    border-radius: 20px;
+}
+.form-label {
+    color: white;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+.confirm .column:nth-child(2) button{
+    padding: 10px 106px;
+    background: #5fcf86;
+    border: 1px solid white;
+    border-radius: 10px;
+    margin-top: 22px;
+    color: white;
+}
+.info-price{
+    margin-top: 10px;
+    padding-top: 15px;
+    border-top: 1px solid white;
+    color: white;
+}
+.info-price p{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+
 
 
 

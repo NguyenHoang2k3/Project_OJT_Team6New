@@ -85,6 +85,9 @@ public class Car {
   @Column(name = "VehicleRegistration", length = 5000)
   private String vehicleRegistration;
 
+  @Column(name = "AcpCarStatus", length = 50)
+  private Boolean AcpCarStatus;
+
   @OneToMany(mappedBy = "cars")
   private List<Order> orders;
 

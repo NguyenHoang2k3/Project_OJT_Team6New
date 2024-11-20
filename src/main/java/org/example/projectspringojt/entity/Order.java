@@ -1,17 +1,8 @@
 package org.example.projectspringojt.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -37,8 +28,14 @@ public class Order {
   @Column(name = "Order_EndDate", nullable = false)
   private LocalDate OrderEndDate;
 
-  @Enumerated(value = EnumType.ORDINAL)
-  private Status Status;
+  @Column(name = "Order_Price", precision = 10, scale = 3,nullable = false)
+  private BigDecimal orderPrice;
+
+  @Column(name = "Shipping_Address", nullable = false)
+  private String sh_address;
+
+  @Enumerated(value = EnumType.STRING)
+  private Status status;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "User_ID")
@@ -50,6 +47,5 @@ public class Order {
 
   @OneToMany(mappedBy = "order")
   private List<Feedback> feedback;
-
 
 }

@@ -1,0 +1,201 @@
+#order-list{
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 25px;
+}
+
+.booking-content {
+    background-color: #ffffff;
+    width: 260px;
+    height: 350px;
+    padding: 10px;
+    border-radius: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+}
+.booking-content:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+.booking-content .image-car img{
+    width: 100%;
+    height: 150px;
+    border-radius: 20px;
+}
+.Name_and_address{
+    margin-top: 10px;
+}
+.Name_and_address p:nth-child(1){
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+.Name_and_address p:nth-child(2){
+    font-size: 14px;
+    color: #888888;
+}
+.date-booking{
+    display: flex;
+    font-weight: bold;
+}
+.date-booking p:nth-child(1){
+    margin-right: 10px;
+}
+.date-booking p:nth-child(2){
+    margin-left: 10px;
+}
+.price-booking{
+    display: flex;
+    border-top: 1px solid lightgray;
+    padding-top: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+.price-booking p{
+    font-size: 18px;
+    font-weight: bold;
+    color: #00c16e;
+    margin-bottom: 0;
+}
+.price-booking a{
+    padding: 10px;
+    background: white;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    /*color: #888888 !important;*/
+}
+.price-booking a:hover{
+    color: white !important;
+    background: #00c16e;
+}
+.paging-prev{
+    font-weight: bold;
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 50%;
+    border: 1px solid lightgray;
+    cursor: pointer;
+
+}
+
+.paging-prev:hover{
+    background: lightgray;
+}
+.paging-next{
+    font-weight: bold;
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 50%;
+    border: 1px solid lightgray;
+    cursor: pointer;
+}
+.paging-next:hover{
+    background: lightgray;
+}
+header {
+    background-color: #fff;
+    padding: 20px 62px;
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+.content-action{
+    display: flex;
+    align-items: center !important;
+}
+.content-action nav{
+   border-right: 1px solid black;
+    padding-right: 20px;
+}
+.content-action nav ul li a{
+    text-decoration: none;
+}
+header .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+header .logo img {
+    height: 40px;
+    width: 60px;
+}
+
+header .logo h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li {
+    display: inline-block;
+}
+nav ul li :hover{
+    color: #00c16e !important;
+}
+nav ul li a {
+    font-size: 16px;
+    color: #333;
+    text-decoration: none;
+    padding: 8px 12px;
+}
+
+#actions {
+    display: flex;
+    gap: 15px;
+}
+
+#actions a {
+    font-size: 16px;
+    color: #00c16e !important;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+
+#info-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding-left: 20px;
+}
+
+#info-user img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+#info-user a {
+    font-size: 16px;
+    color: #333;
+    text-decoration: none;
+}
+
+#info-user .dropdown-icon {
+    font-size: 12px;
+    color: #333;
+}
+.disabled {
+    color: gray;
+    pointer-events: none;
+    text-decoration: none;
+}

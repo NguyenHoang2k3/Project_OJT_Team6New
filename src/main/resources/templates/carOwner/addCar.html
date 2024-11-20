@@ -11,7 +11,7 @@
 <body>
 <div class="modal-content">
 <form action="/addCar" method="post" th:object="${car}">
-  <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+
   <div class="modal-header">
     <h2 class="modal-title" id="exampleModalLabel">New Car</h2>
     <div class="text-end">
@@ -138,10 +138,13 @@
           <div class="col-md-4">
             <label class="form-label" for="addressCarStatus">Address Car Status:</label>
             <div class="form-check" style="display:flex; align-items: center">
-              <input type="checkbox" id="addressCarStatus" class="form-check-input" th:field="*{addressCarStatus}" checked>
+              <input type="checkbox" id="addressCarStatus" class="form-check-input" th:field="*{addressCarStatus}">
               <label for="addressCarStatus" class="form-check-label">Hỗ trợ giao xe tận nơi</label>
             </div>
           </div>
+        </div>
+        <div class="row mb-3" style="display: none">
+          <input type="checkbox" id="AcpCarStatus" class="form-check-input" th:field="*{acpCarStatus}">
         </div>
       </div>
     </div>

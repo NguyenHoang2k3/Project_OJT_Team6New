@@ -20,7 +20,7 @@ body {
 }
 .box-content ul {
     list-style-type: none;
-    padding: 0;
+    padding: 0 20px 0 0;
 }
 .box-content li {
     margin-bottom: 10px;
@@ -29,15 +29,15 @@ body {
     padding: 20px;
     border-radius: 20px;
     border: 1px solid lightgray;
-    width: 280px;
+    width: 200px;
 }
 .box-content li i {
     margin-right: 10px;
     color: #00c16e;
 }
 .choose-item{
-    width: 30%;
-    margin-right: 20px;
+    width: 20%;
+    margin-right: 10px;
     border-right: 1px solid lightgray;
 }
 .choose-item li:hover,
@@ -49,7 +49,7 @@ body {
 }
 .detailed-information-title{
     display: flex;
-    gap: 300px;
+    gap: 400px;
 }
 .list-myCar{
     margin-top: 30px;

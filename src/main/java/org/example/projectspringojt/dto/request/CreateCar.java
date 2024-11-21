@@ -60,4 +60,6 @@ public class CreateCar {
 
     @NotBlank(message = "please select photo !")
     private String vehicleRegistration;
+    private Boolean AcpCarStatus;
+
 }

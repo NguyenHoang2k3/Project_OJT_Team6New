@@ -178,7 +178,7 @@
   <h1 style="font-weight: bold; padding-top: 30px">Xe Dành Cho Bạn</h1>
   <div class="car-grid">
     <div class="row" style=" display: flex;flex-wrap: wrap;gap: 20px;">
-      <div class="col-4" th:each="car : ${cars}" style="flex: 1 0 30%; box-sizing: border-box;display: flex; flex-direction: column;justify-content: space-between;">
+      <div class="col-4" th:each="car : ${cars}" style="flex: 1 0 30%; box-sizing: border-box;display: flex; flex-direction: column;justify-content: space-between;" th:if="${car.acpCarStatus == true}">
         <div class="cars-list">
           <a th:href ="@{/carDetail/{carId}(carId = ${car.carId})}" style="text-decoration: none; color: inherit">
           <div class="car-main">

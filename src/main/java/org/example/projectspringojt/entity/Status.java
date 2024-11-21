@@ -1,5 +1,4 @@
 package org.example.projectspringojt.entity;
 
-public enum Status
-{ DONE,PROGRESS
+public enum Status { DONE,PROGRESS
 }

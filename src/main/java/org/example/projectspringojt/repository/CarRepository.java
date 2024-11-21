@@ -15,6 +15,7 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
       "OR u.brand LIKE %:searchText% " +
       "OR u.model LIKE %:searchText% " +
       "OR u.color LIKE %:searchText% " +
-      "OR CAST(u.carStatus AS string) LIKE %:searchText%")
+      "OR CAST(u.carStatus AS string) LIKE %:searchText%"
+)
   List<Car> findByAllFields(String searchText);
 }

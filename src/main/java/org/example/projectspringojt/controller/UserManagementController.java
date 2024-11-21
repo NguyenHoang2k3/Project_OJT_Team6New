@@ -6,8 +6,10 @@ import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.example.projectspringojt.entity.Car;
+import org.example.projectspringojt.entity.Order;
 import org.example.projectspringojt.entity.User;
 import org.example.projectspringojt.repository.CarRepository;
+import org.example.projectspringojt.repository.OrderRepository;
 import org.example.projectspringojt.repository.UserRepository;
 import org.example.projectspringojt.service.CarService;
 import org.example.projectspringojt.service.UserService;
@@ -32,6 +34,7 @@ public class UserManagementController {
   private final UserService userService;
   private final UserRepository userRepository;
   private final CarRepository carRepository;
+  private final OrderRepository orderRepository;
   private final CarServiceImpl carService;
   private static final int USERS_PER_PAGE = 10;
 
@@ -72,6 +75,25 @@ public class UserManagementController {
 
     return "/admin/acpcar"; // Name of the Thymeleaf HTML template
   }
+
+  @GetMapping("/manageOrder")
+  public String manageOrder(
+      @RequestParam(value = "index", defaultValue = "1") Integer index,
+      @RequestParam(value = "size", defaultValue = "8") Integer size,
+      Model model
+  ) {
+    Pageable pageable = PageRequest.of(index-1,size);
+
+    Page<Order> pageUser = orderRepository.findAll(pageable);
+    List<Order> listOrder = pageUser.getContent();
+
+    model.addAttribute("listOrder", listOrder);
+    model.addAttribute("currentPage", index);
+    model.addAttribute("size", size);
+    model.addAttribute("totalPages", pageUser.getTotalPages());
+
+    return "/admin/ordermanagement"; // Name of the Thymeleaf HTML template
+  }
 //  @PostMapping("/admin/search")
 //  public String searchUsers(@RequestParam("searchQuery") String searchQuery, Model model) {
 //    // Tìm kiếm người dùng qua service
@@ -100,6 +122,15 @@ public class UserManagementController {
     List<Car> listCars =  carRepository.findByAllFields("%"+search+"%");
     model.addAttribute("listCars", listCars);
     return "/admin/acpcar";
+  }
+
+  @GetMapping("/search3")
+  public String search3( @RequestParam("search") String search,
+      Model model) {
+
+    List<Order> listOrder =  orderRepository.findByAllFields("%"+search+"%");
+    model.addAttribute("listOrder", listOrder);
+    return "/admin/ordermanagement";
   }
 
   @GetMapping("/test")

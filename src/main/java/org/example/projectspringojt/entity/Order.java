@@ -37,7 +37,7 @@ public class Order {
   @Column(name = "Order_EndDate", nullable = false)
   private LocalDate OrderEndDate;
 
-  @Enumerated(value = EnumType.ORDINAL)
+  @Enumerated(value = EnumType.STRING)
   private Status Status;
 
   @ManyToOne(fetch = FetchType.LAZY)

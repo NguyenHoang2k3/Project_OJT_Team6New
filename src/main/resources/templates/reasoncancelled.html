@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lý do hủy đơn</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background: #fff;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+        }
+        h1 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        select, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #007bff;
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script>
+        function toggleCustomReason() {
+            const reasonSelect = document.getElementById('reason');
+            const customReasonField = document.getElementById('customReasonContainer');
+            if (reasonSelect.value === 'Orther') {
+                customReasonField.classList.remove('hidden');
+            } else {
+                customReasonField.classList.add('hidden');
+                document.getElementById('customReason').value = ''; // Clear the custom reason if hidden
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <h1>Lý do hủy đơn</h1>
+    <form th:action="@{/renter/reasoncancelled/{orderId}(orderId=${orderId})}" method="post">
+        <label for="reason">Chọn lý do:</label>
+        <select name="reason" id="reason" onchange="toggleCustomReason()" required>
+            <option value="">-- Chọn một lý do --</option>
+            <option value="Tôi đổi ý, không muốn thuê nữa">Tôi đổi ý, không muốn thuê nữa</option>
+            <option value="Tôi muốn thay đổi địa chỉ nhận xe">Tôi muốn thay đổi địa chỉ nhận xe</option>
+            <option value="Orther">Lý do khác</option>
+        </select>
+        <div id="customReasonContainer" class="hidden">
+            <label for="customReason">Nếu chọn lý do khác, vui lòng ghi rõ:</label>
+            <textarea name="customReason" id="customReason" placeholder="Nhập lý do của bạn tại đây..."></textarea>
+        </div>
+        <button type="submit">Gửi</button>
+    </form>
+</div>
+</body>
+</html>

@@ -23,19 +23,24 @@ public class Order {
   private Integer orderId;
 
   @Column(name = "Order_StartDate", nullable = false)
-  private LocalDate OrderStartDate;
+  private LocalDate OrderStartDate;   // Thời gian nhận xe
 
   @Column(name = "Order_EndDate", nullable = false)
-  private LocalDate OrderEndDate;
+  private LocalDate OrderEndDate;  // Thời gian trả xe
 
   @Column(name = "Order_Price", precision = 10, scale = 3,nullable = false)
   private BigDecimal orderPrice;
 
   @Column(name = "Shipping_Address", nullable = false)
-  private String sh_address;
+  private String sh_address; // địa điểm nhận
+
+
+  @Column(name = "reasons", length = 10000)
+  private String reasons;
+
 
   @Enumerated(value = EnumType.STRING)
-  private Status status;
+  private Status status; //Trạng thái xác nhận nhận xe
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "User_ID")

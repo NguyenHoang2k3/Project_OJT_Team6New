@@ -33,12 +33,12 @@ public class AppController {
         return "customerHome"; // Có thể bạn muốn tạo một template riêng cho customer, ví dụ "customerHome"
     }
 
-    @GetMapping("/carDetail")
+    @GetMapping("/carDetail/static")
     public String getCarDetails() {
         return "carDetail";
     }
 
-    @GetMapping("/myCars")
+    @GetMapping("/carOwner/myCars")
     public String getMyCars() {
         return "myCars";
     }

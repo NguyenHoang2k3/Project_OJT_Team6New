@@ -6,6 +6,14 @@
     padding-right: 10px;
     margin-top: 25px;
 }
+#add-car-container1{
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 25px;
+}
 
 .booking-content {
     background-color: #ffffff;
@@ -199,3 +207,4 @@ nav ul li a {
     pointer-events: none;
     text-decoration: none;
 }
+

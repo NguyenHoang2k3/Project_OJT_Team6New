@@ -8,7 +8,9 @@ import org.example.projectspringojt.entity.Feedback;
 import org.example.projectspringojt.repository.CarRepository;
 
 import org.example.projectspringojt.repository.FeedbackRepository;
+import org.example.projectspringojt.service.CarService;
 import org.example.projectspringojt.service.UserService;
+import org.example.projectspringojt.service.impl.CarServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -28,8 +30,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CarController {
     private final CarRepository carRepository;
+    private final CarService carService;
 
-    @GetMapping("/home")
+    @GetMapping("/car/home")
     public String listCars(Model model) {
         model.addAttribute("cars", carRepository.findTop9ByAcpCarStatusTrueOrderByCarIdDesc());
         return "home";
@@ -47,5 +50,11 @@ public class CarController {
         return "/carDetail";
     }
 
+    @GetMapping("/myListCars")
+    public String showMyCars(Model model) {
+        List<Car> cars = carService.getAllCars();
+        model.addAttribute("cars", cars);
+        return "myCars";
+    }
 
 }

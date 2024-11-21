@@ -21,15 +21,7 @@ public class RegisterController {
     @Autowired
     private UserServiceTest userService;
 
-    @GetMapping("/Home")
-    public String showHomePage() {
-        return "Home"; //
-    }
 
-    @GetMapping("/header")
-    public String showHeader(){
-        return "header";
-    }
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {

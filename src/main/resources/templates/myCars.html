@@ -13,6 +13,9 @@
     html{
         scroll-behavior: smooth;
     }
+    #add-car-container1 {
+        display: block; /* Đảm bảo rằng phần này luôn hiển thị */
+    }
 </style>
 <body>
 <header>
@@ -53,6 +56,7 @@
                 <li data-info="Xe yêu thích của tôi" style="cursor: pointer"><i class="fas fa-heart"></i>Xe yêu thích</li>
                 <li id="xe-cua-toi" data-info="Danh sách xe cho thuê" style="cursor: pointer"><i class="fas fa-car"></i> Xe của tôi</li>
                 <li id="chuyen-cua-toi" data-info="List Booking" style="cursor: pointer"><i class="fas fa-paper-plane"></i>List Booking</li>
+
             </ul>
         </div>
         <div class="detailed-information">
@@ -66,14 +70,60 @@
             </div>
             </a>
             </div>
+
+
+
+
             <div class="list-myCar">
                 <div th:if="${messages}" class="alert alert-success">
                     <p th:text="${messages}"></p>
                 </div>
-               <div id="add-car-container1" style="display: none;">
-                   List sẽ hiển thị đây
-               </div>
+
+                <div id="add-car-container1" style="display: none;">
+                    <h3 style="color: #00c16e;">Danh sách xe cho thuê của bạn</h3>
+                    <div class="responsive-booking" style="display: flex; gap: 20px">
+                        <!-- Lặp qua tất cả các đơn hàng -->
+                        <div class="booking-content" th:each="order : ${orders}">
+
+                                <a th:href="@{/order/update/{orderId}(orderId=${order.orderId})}" style="text-decoration: none; color: inherit;">
+                                    <div class="image-car">
+                                     <!--  <img th:src="@{/ImageProject/{imageName}(imageName=${order.cars.image})}" alt="Car Image">  -->  
+                                        <img th:src="${order.cars.image}">
+                                    </div>
+                                    <div class="Name_and_address">
+                                        <p th:text="${order.cars.name}"></p>
+                                        <div style="display: flex;">
+                                            <i class="fas fa-map-marker-alt" style="margin-right: 10px; color: #00c16e;"></i>
+                                            <p th:text="${order.sh_address}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="date-booking">
+                                        <i class="fas fa-calendar" style="color: #00c16e; margin-top: 3px;"></i>
+                                        <p th:text="${order.orderStartDate}" style="margin-right: 10px;"></p>
+                                        <p>-</p>
+                                        <p th:text="${order.orderEndDate}" style="margin-left: 10px;"></p>
+                                    </div>
+                                    <div class="price-booking">
+                                        <p th:text="${order.orderPrice}"></p>
+                                        <a   th:href="@{/ChangeStatusOrder(orderId = ${order.orderId})}"
+                                                                                    th:text="${order.status}" >
+                                        th:style="'text-decoration: none; color: ' +
+                                        (${order.status.toString()} == 'CANCELLED' ? 'red' : (${order.status.toString()}  == 'DONE' ? 'green' : 'gray'))" >
+
+                                    </a>
+                                    </div>
+                                </a>
+
+                        </div>
+                    </div>
+                </div>
             </div>
+
+
+
+
+
+
            <div id="choose-status" style="display: none;">
             <div style="display: flex; gap: 380px">
                 <form action="/myCars" method="get">
@@ -103,8 +153,11 @@
             <div id="order-list" style="display: none;">
                 <div class="responsive-booking" style="display: flex; gap: 20px">
                     <div class="booking-content" th:each="order :${orders}">
+                        <a th:href="@{/renter/confirm/{orderId}(orderId=${order.orderId})}" style="text-decoration: none; color: inherit;">
                         <div class="image-car">
-                            <img th:src="@{/ImageProject/{imageName}(imageName=${order.cars.image})}" alt="Car">
+                     <!--       <img th:src="@{/ImageProject/{imageName}(imageName=${order.cars.image})}" alt="Car">
+                        -->
+                            <img th:src="${order.cars.image}">
                         </div>
                         <div class="Name_and_address">
                             <p th:text="${order.cars.name}"></p>
@@ -121,14 +174,18 @@
                         </div>
                         <div class="price-booking">
                             <p th:text="${order.orderPrice}"></p>
-                            <a th:href="@{/ChangeStatusOrder(orderId = ${order.orderId})}"
-                               th:text="${order.status}"
-                               th:style="'text-decoration: none; color: ' +
-                                    (${order.status.toString()} == 'CANCELLED' ? 'red' : (${order.status.toString()}  == 'DONE' ? 'green' : 'gray'))">
+
+                            <a   th:href="@{/ChangeStatusOrder(orderId = ${order.orderId})}"
+                                       th:text="${order.status}" >
+                                th:style="'text-decoration: none; color: ' +
+                                            (${order.status.toString()} == 'CANCELLED' ? 'red' : (${order.status.toString()}  == 'DONE' ? 'green' : 'gray'))" >
+
                             </a>
                         </div>
+                        </a>
                     </div>
                 </div>
+
                 <div class="paging-order" style="display: flex; margin-top: 20px; gap: 20px; justify-content: center">
                     <div class="paging-prev">
                         <a href="#"

@@ -1,6 +1,7 @@
 package org.example.projectspringojt.service.impl;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.example.projectspringojt.dto.request.CreateCar;
@@ -54,6 +55,10 @@ public class CarServiceImpl implements CarService {
       car.setAcpCarStatus(acpCarStatus);
       carRepository.save(car);
     }
+  }
+
+  public List<Car> getAllCars() {
+    return carRepository.findAll();
   }
 }
 

@@ -21,4 +21,10 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query("select o from Order o where o.status = :status order by o.orderId desc")
     Page<Order> findByStatusOrderedByIdDesc(@Param("status") Status status, Pageable pageable);
 
+    @Query("SELECT o FROM Order o WHERE o.user.userID = :userId AND o.status = 'PROGRESS'")
+    List<Order> findOrdersByUser(@Param("userId") Integer userId);
+
+    @Query("SELECT o FROM Order o WHERE o.cars.user.userID = :ownerId AND o.status = 'PROGRESS'")
+    List<Order> findOrdersByCarOwner(@Param("ownerId") Integer ownerId);
+
 }

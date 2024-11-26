@@ -21,4 +21,13 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query("select o from Order o where o.status = :status order by o.orderId desc")
     Page<Order> findByStatusOrderedByIdDesc(@Param("status") Status status, Pageable pageable);
 
+    long countByStatus(Status status);
+
+    @Query("SELECT SUM(o.orderPrice) FROM Order o WHERE o.status = 'DONE' GROUP BY MONTH(o.OrderStartDate) order by MONTH(o.OrderStartDate) asc")
+    List<Long> getMonthlyRevenueByYear();
+
+    @Query("SELECT DISTINCT YEAR(o.OrderStartDate) FROM Order o WHERE o.status = 'DONE' GROUP BY YEAR(o.OrderStartDate) order by YEAR(o.OrderStartDate) ASC")
+    List<String> getYearRevenue();
+
+
 }

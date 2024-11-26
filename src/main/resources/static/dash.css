@@ -1,0 +1,59 @@
+* {
+    font-family: Arial, sans-serif;
+
+}
+.content{
+    width: 400px;
+}
+.row{
+    margin: 0 10px !important;
+}
+.scroll-container {
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+.text-center{
+    color: white;
+}
+.text-center span{
+    font-weight: bold;
+    font-size: 30px;
+}
+.list{
+    list-style-type: none
+}
+
+.d-inline-flex{
+    align-items: center;
+}
+.d-inline-flex img{
+    width: 45%;
+    height: 45%;
+    border-radius: 20px;
+}
+.text-center{
+    width: 200px;
+}
+.text-dark{
+    font-weight: bold;
+}
+canvas {
+    width: 100% !important;
+    max-width: 600px;
+    height: auto;
+    margin: 0 auto;
+}
+.col-7 {
+    text-align: center;
+    margin-top: 30px;
+}
+.filter-year{
+    text-align: right;
+    margin-right: 10px;
+
+}
+.text-center i{
+    margin-right: 5px;
+    font-size: 20px;
+}

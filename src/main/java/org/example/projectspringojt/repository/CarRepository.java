@@ -21,4 +21,6 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
     List<Car> findTop9ByAcpCarStatusTrueOrderByCarIdDesc();
     List<Car> findByBrand(String brand);
 
+   long count();
+
 }

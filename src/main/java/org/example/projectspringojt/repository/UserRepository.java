@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.example.projectspringojt.entity.Role;
 import org.example.projectspringojt.entity.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -41,5 +42,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
   List<User> findByAllFields( String searchText);
 
   Optional<User> findByUserName(String userName);
-
+  long countByRole(Role role);
 }

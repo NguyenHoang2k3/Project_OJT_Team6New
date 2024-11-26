@@ -6,8 +6,11 @@ import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.example.projectspringojt.entity.Car;
+import org.example.projectspringojt.entity.Role;
+import org.example.projectspringojt.entity.Status;
 import org.example.projectspringojt.entity.User;
 import org.example.projectspringojt.repository.CarRepository;
+import org.example.projectspringojt.repository.OrderRepository;
 import org.example.projectspringojt.repository.UserRepository;
 import org.example.projectspringojt.service.CarService;
 import org.example.projectspringojt.service.UserService;
@@ -34,6 +37,7 @@ public class UserManagementController {
   private final CarRepository carRepository;
   private final CarServiceImpl carService;
   private static final int USERS_PER_PAGE = 10;
+  private final OrderRepository orderRepository;
 
   // Display the User Management page
   @GetMapping("/manageUser")
@@ -170,7 +174,26 @@ public class UserManagementController {
     return "redirect:/admin/acpCar";
   }
 
-
+   @GetMapping("/dashboard")
+   public String HomeAdmin(Model model){
+     long countCar = carRepository.count();
+     long countOrder = orderRepository.countByStatus(Status.DONE);
+     long countCancelOrder = orderRepository.countByStatus(Status.CANCELLED);
+     long countCustomer = userRepository.countByRole(Role.CUSTOMER);
+     long countCarOwner = userRepository.countByRole(Role.CAR_OWNER);
+     List<Car> lisCar = carRepository.findTop9ByAcpCarStatusTrueOrderByCarIdDesc();
+     List<Long> monthlyRevenue = orderRepository.getMonthlyRevenueByYear();
+     List<String> yearRevenue = orderRepository.getYearRevenue();
+     model.addAttribute("countCar", countCar);
+     model.addAttribute("countOrder", countOrder);
+     model.addAttribute("countCancelOrder", countCancelOrder);
+     model.addAttribute("countCarOwner", countCarOwner);
+     model.addAttribute("countCustomer", countCustomer);
+     model.addAttribute("lisCar", lisCar);
+     model.addAttribute("monthlyRevenue", monthlyRevenue);
+     model.addAttribute("yearRevenue", yearRevenue);
+     return "/admin/dashboard";
+   }
 
 
 }

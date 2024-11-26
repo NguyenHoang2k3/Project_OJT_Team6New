@@ -1,5 +1,6 @@
 package org.example.projectspringojt.repository;
 
+
 import org.example.projectspringojt.entity.Order;
 import org.example.projectspringojt.entity.Status;
 import org.springframework.data.domain.Page;
@@ -9,8 +10,20 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface OrderRepository extends JpaRepository<Order, Integer> {
+
+    Optional<Order> findByCars_CarId(Integer carId);
+
+    @Query("SELECT u FROM Order u " +
+            "WHERE STR(u.OrderStartDate) LIKE %:searchText% " +
+            "OR STR(u.OrderEndDate) LIKE %:searchText% " +
+            "OR STR(u.cars.carId) LIKE %:searchText% " +
+            "OR STR(u.user.userID) LIKE %:searchText% " +
+            "OR CAST(u.status AS String) LIKE %:searchText%")
+    List<Order> findByAllFields(String searchText);
+
     @Query("select o from Order o " +
             "where o.cars.name like :searchText " +
             "or o.sh_address like :searchText " +

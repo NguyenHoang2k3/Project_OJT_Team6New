@@ -13,6 +13,29 @@
     html{
         scroll-behavior: smooth;
     }
+     table {
+         width: 100%;
+         border-collapse: collapse;
+     }
+    table, th, td {
+        border: 1px solid black;
+    }
+    th, td {
+        width: 80px;
+        padding: 10px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    td img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+    td a:hover{
+        color: #5fcf86 !important;
+    }
 </style>
 <body>
 <header>
@@ -70,9 +93,74 @@
                 <div th:if="${messages}" class="alert alert-success">
                     <p th:text="${messages}"></p>
                 </div>
-               <div id="add-car-container1" style="display: none;">
-                   List sẽ hiển thị đây
-               </div>
+
+                    <div id="add-car-container1" style="display: none;">
+                        <p>List hiển thị ở đây</p>
+<!--                        <table>-->
+<!--                            <thead>-->
+<!--                            <tr>-->
+<!--                                <th>Image</th>-->
+<!--                                <th>Name</th>-->
+<!--                                <th>Rental Price</th>-->
+<!--                                <th>Status</th>-->
+<!--                            </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody>-->
+<!--                            <tr th:each="ca : ${carsOfOwner}">-->
+<!--                                <td><img th:src="@{/ImageProject/{imageName}(imageName=${ca.image})}" alt="Car Image"></td>-->
+<!--                                <td th:text="${ca.name}"></td>-->
+<!--                                <td th:text="${ca.rentalPrice}"></td>-->
+<!--                                <td th:text="${ca.carStatus}"></td>-->
+<!--                                <td>-->
+<!--                                    <a-->
+<!--                                       th:if="${ca.carStatus.toString() == 'NON_RENTAL'}"-->
+<!--                                       onclick="openForm('formConfirm')"-->
+<!--                                       style="text-decoration: none; color: red; font-size: 20px">Confirm</a>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            </tbody>-->
+<!--                        </table>-->
+
+                        <div class="overlay" id="overlay" onclick="closeForm()"></div>
+                        <div class="form-popup" id="formConfirm">
+                            <div>
+                                <button type="button" class="close" onclick="closeForm()">
+                                    <span aria-hidden="true">×</span>
+                                    <span class="sr-only">Close</span>
+                                </button>
+                                <h3 style="color: #00c16e">Renter Information</h3>
+                                <div class="confirm-detail">
+
+                                    <div class="info-renter">
+                                        <p>Name: </p>
+                                        <span>Nguyễn Thành Đat</span>
+                                    </div>
+                                    <div class="info-renter">
+                                        <p>Address: </p>
+                                        <span>Quận Hoàn Kiếm, TP.Hồ Chí Minh</span>
+                                    </div>
+                                    <div class="info-renter">
+                                        <p>Email: </p>
+                                        <span>abc@gmail.com</span>
+                                    </div>
+                                    <div class="info-renter">
+                                        <p>Phone: </p>
+                                        <span>0912372731</span>
+                                    </div>
+                                    <div class="info-renter" style="display: flex">
+                                        <p>Order Date:</p>
+                                        <span></span>
+                                        <p style="margin: 0 10px">-</p>
+                                        <span></span>
+                                    </div>
+                                </div>
+                                <div class="confirm">
+                                    <button id="confirmBtn">Car Confirmed</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
             </div>
            <div id="choose-status" style="display: none;">
             <div style="display: flex; gap: 380px">
@@ -232,6 +320,25 @@
         .catch(error => {
             console.log('Lỗi khi tải footer.html:', error);
         });
+    function openForm(formId) {
+        const forms = document.querySelectorAll('.form-popup');
+        forms.forEach(form => {
+            if (form.id === formId) {
+                form.style.display = 'block';
+            } else {
+                form.style.display = 'none';
+            }
+        });
+        document.getElementById('overlay').style.display = 'block';
+    }
+
+    function closeForm() {
+        const forms = document.querySelectorAll('.form-popup');
+        forms.forEach(form => {
+            form.style.display = 'none';
+        });
+        document.getElementById('overlay').style.display = 'none';
+    }
 </script>
 <script src="/rentalCar.js"></script>
 </body>

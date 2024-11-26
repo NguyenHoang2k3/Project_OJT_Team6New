@@ -1,10 +1,13 @@
 package org.example.projectspringojt.repository;
 
 import org.example.projectspringojt.entity.Car;
+import org.example.projectspringojt.entity.Order;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CarRepository extends JpaRepository<Car, Integer> {
 
@@ -14,13 +17,14 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
       "OR u.brand LIKE %:searchText% " +
       "OR u.model LIKE %:searchText% " +
       "OR u.color LIKE %:searchText% " +
-      "OR CAST(u.carStatus AS string) LIKE %:searchText%")
+      "OR CAST(u.carStatus AS string) LIKE %:searchText%"
+)
   List<Car> findByAllFields(String searchText);
 
     @Query("SELECT c FROM Car c WHERE c.AcpCarStatus = true ORDER BY c.carId DESC")
     List<Car> findTop9ByAcpCarStatusTrueOrderByCarIdDesc();
     List<Car> findByBrand(String brand);
 
-   long count();
+    long count();
 
 }

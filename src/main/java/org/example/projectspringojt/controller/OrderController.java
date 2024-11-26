@@ -59,9 +59,9 @@ public String getOrderList(
     else {
         pageOrders = orderRepository.findAll(pageable);
     }
-
+    Pageable pages = PageRequest.of(0, 3, Sort.by(Sort.Direction.DESC, "CarId"));
     List<Order> orders = pageOrders.getContent();
-
+    model.addAttribute("carsOfOwner", carRepository.findAll(pages).getContent());
     model.addAttribute("orders", orders);
     model.addAttribute("currentPage", page);
     model.addAttribute("size", size);

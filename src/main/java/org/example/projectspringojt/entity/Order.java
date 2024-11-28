@@ -42,6 +42,9 @@ public class Order {
   @Enumerated(value = EnumType.STRING)
   private Status status; //Trạng thái xác nhận nhận xe
 
+  @Enumerated(value = EnumType.STRING)
+  private Status statusend;
+
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "User_ID")
   private User user;

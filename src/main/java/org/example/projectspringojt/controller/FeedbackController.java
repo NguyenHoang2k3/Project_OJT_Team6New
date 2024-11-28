@@ -2,6 +2,8 @@ package org.example.projectspringojt.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.projectspringojt.entity.Feedback;
+import org.example.projectspringojt.entity.Order;
+import org.example.projectspringojt.entity.User;
 import org.example.projectspringojt.repository.FeedbackRepository;
 import org.example.projectspringojt.repository.OrderRepository;
 import org.springframework.stereotype.Controller;
@@ -31,13 +33,18 @@ public class FeedbackController {
                 .orElse(0.0);
 
         int totalComments = feedbacks.size();
+        Order order = feedbacks.isEmpty() ? null : feedbacks.get(0).getOrder();
+
 
         model.addAttribute("feedbacks", feedbacks);
         model.addAttribute("averageRating", String.format("%.1f", averageRating));
         model.addAttribute("totalComments", totalComments);
 
+       //   return "carDetails";
         return "/user/feedback";
     }
+
+
 
     @GetMapping("/feedbacks/add/order/{orderId}")
     public String showAddFeedbackForm(
@@ -60,6 +67,7 @@ public class FeedbackController {
         feedback.setContent(content);
         feedback.setTime(LocalDate.now());
 
+
         // Liên kết feedback với order
         feedback.setOrder(orderRepository.findById(orderId).orElse(null));
 
@@ -70,4 +78,5 @@ public class FeedbackController {
 
         return "redirect:/feedbacks/" + carId;
     }
+
 }

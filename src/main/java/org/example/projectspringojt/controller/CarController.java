@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.projectspringojt.dto.request.CreateCar;
 import org.example.projectspringojt.entity.Car;
 import org.example.projectspringojt.entity.Feedback;
+import org.example.projectspringojt.entity.Order;
 import org.example.projectspringojt.repository.CarRepository;
 
 import org.example.projectspringojt.repository.FeedbackRepository;
@@ -31,6 +32,7 @@ import java.util.stream.Collectors;
 public class CarController {
     private final CarRepository carRepository;
     private final CarService carService;
+    private final FeedbackRepository feedbackRepository;
 
     @GetMapping("/car/home")
     public String listCars(Model model) {
@@ -43,6 +45,21 @@ public class CarController {
         Car car = carRepository.findById(carId).orElseThrow();
         BigDecimal totalPrice = car.getRentalPrice().add(car.getPrice());
         List<Car> carSameBrand = carRepository.findByBrand(car.getBrand());
+        List<Feedback> feedbacks = feedbackRepository.findByOrder_Cars_CarId(carId);
+
+        double averageRating = feedbacks.stream()
+                .mapToInt(Feedback::getRating)
+                .average()
+                .orElse(0.0);
+
+        int totalComments = feedbacks.size();
+        Order order = feedbacks.isEmpty() ? null : feedbacks.get(0).getOrder();
+
+
+        model.addAttribute("feedbacks", feedbacks);
+        model.addAttribute("averageRating", String.format("%.1f", averageRating));
+        model.addAttribute("totalComments", totalComments);
+
         model.addAttribute("car", car);
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("carSameBrand", carSameBrand);

@@ -154,24 +154,29 @@ public class PickUpController {
         if (order.getStatus() != Status.PROGRESS) {
             model.addAttribute("error", "Order cannot be cancelled at this stage.");
             return "reasoncancelled";
+        }else{
+
+            // Xử lý lý do: Nếu chọn "Lý do khác", sử dụng lý do người dùng nhập
+            String finalReason = reason.equals("Orther") && customReason != null && !customReason.trim().isEmpty()
+                    ? customReason
+                    : reason;
+
+            // Cập nhật đơn hàng
+            order.setStatus(Status.CANCELLED);
+            order.setReasons(finalReason); // Lưu lý do hủy
+            orderRepository.save(order);
+
+            // Trả về thông báo thành công
+            model.addAttribute("success", "Order has been cancelled with reason: " + finalReason);
+            model.addAttribute("order", order);
+            //   return "renter_confirm"; // Trả về trang xác nhận
+
+            return "redirect:/myCars#xe-cua-toi";
         }
 
-        // Xử lý lý do: Nếu chọn "Lý do khác", sử dụng lý do người dùng nhập
-        String finalReason = reason.equals("Orther") && customReason != null && !customReason.trim().isEmpty()
-                ? customReason
-                : reason;
 
-        // Cập nhật đơn hàng
-        order.setStatus(Status.CANCELLED);
-        order.setReasons(finalReason); // Lưu lý do hủy
-        orderRepository.save(order);
 
-        // Trả về thông báo thành công
-        model.addAttribute("success", "Order has been cancelled with reason: " + finalReason);
-        model.addAttribute("order", order);
-     //   return "renter_confirm"; // Trả về trang xác nhận
 
-        return "redirect:/myCars#xe-cua-toi";
     }
 
 

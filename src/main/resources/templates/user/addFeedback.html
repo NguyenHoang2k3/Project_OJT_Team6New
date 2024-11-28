@@ -5,6 +5,12 @@
   <title>Thêm Bình Luận</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
+    body {
+      background-image: url('https://tecwood.com.vn/news/hinh-nen-mau-xanh-la-cay-moi.jpg');
+      background-size: cover; /* Đảm bảo hình nền phủ đầy màn hình */
+      background-position: center center; /* Đặt hình nền ở giữa */
+      background-attachment: fixed; /* Hình nền cố định khi cuộn trang */
+    }
     .star-rating {
       display: flex;
       flex-direction: row;
@@ -23,33 +29,74 @@
   </style>
 </head>
 <body>
-<div class="container">
-  <div class="feedback-form mt-4">
-    <h4>Thêm bình luận của bạn</h4>
-    <form th:action="@{/feedbacks/add/order/{orderId}(orderId=${orderId})}" method="post">
+<!--<div class="container">-->
+<!--  <div class="feedback-form mt-4">-->
+<!--    <h4>Thêm bình luận của bạn</h4>-->
+<!--    <form th:action="@{/feedbacks/add/order/{orderId}(orderId=${orderId})}" method="post">-->
 
 
-      <input type="hidden" name="orderId" th:value="${orderId}">
-      <input type="hidden" id="ratingInput" name="rating" value="5">
-      <div class="form-group">
-        <label>Đánh giá</label>
-        <div class="star-rating">
-          <span class="star" data-value="1">★</span>
-          <span class="star" data-value="2">★</span>
-          <span class="star" data-value="3">★</span>
-          <span class="star" data-value="4">★</span>
-          <span class="star" data-value="5">★</span>
-        </div>
+<!--      <input type="hidden" name="orderId" th:value="${orderId}">-->
+<!--      <input type="hidden" id="ratingInput" name="rating" value="5">-->
+<!--      <div class="form-group">-->
+<!--        <label>Đánh giá</label>-->
+<!--        <div class="star-rating">-->
+<!--          <span class="star" data-value="1">★</span>-->
+<!--          <span class="star" data-value="2">★</span>-->
+<!--          <span class="star" data-value="3">★</span>-->
+<!--          <span class="star" data-value="4">★</span>-->
+<!--          <span class="star" data-value="5">★</span>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="form-group">-->
+<!--        <label for="content">Nội dung bình luận</label>-->
+<!--        <textarea class="form-control" id="content" name="content" rows="3" required></textarea>-->
+<!--      </div>-->
+<!--      <button type="submit" class="btn btn-primary">Gửi bình luận</button>-->
+<!--    </form>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!-- Modal -->
+<div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="commentModalLabel">Thêm Bình Luận Của Bạn</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="window.location.href='http://localhost:8080/myCars';">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <div class="form-group">
-        <label for="content">Nội dung bình luận</label>
-        <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+      <div class="modal-body">
+        <form th:action="@{/feedbacks/add/order/{orderId}(orderId=${orderId})}" method="post">
+          <input type="hidden" name="orderId" value="{orderId}">
+          <input type="hidden" id="ratingInput" name="rating" value="5">
+          <div class="form-group">
+            <label>Đánh giá</label>
+            <div class="star-rating">
+              <span class="star" data-value="1">★</span>
+              <span class="star" data-value="2">★</span>
+              <span class="star" data-value="3">★</span>
+              <span class="star" data-value="4">★</span>
+              <span class="star" data-value="5">★</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="content">Nội dung bình luận</label>
+            <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+          </div>
+          <div class="modal-footer">
+
+            <button type="submit" class="btn btn-primary">Gửi Bình Luận</button>
+          </div>
+        </form>
       </div>
-      <button type="submit" class="btn btn-primary">Gửi bình luận</button>
-    </form>
+
+    </div>
   </div>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
   const stars = document.querySelectorAll('.star');
   const ratingInput = document.getElementById('ratingInput');
@@ -93,6 +140,10 @@
       });
     });
   });
+  $(document).ready(function() {
+    $('#commentModal').modal('show'); // Mở modal khi trang tải
+  });
 </script>
+
 </body>
 </html>

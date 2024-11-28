@@ -115,6 +115,7 @@
 
 
 
+
     <form th:action="@{/renter/confirm/{orderId}(orderId=${order.orderId})}" method="post">
       <input type="hidden" name="orderId" th:value="${order.orderId}">
       <button type="submit" class="confirm-button"

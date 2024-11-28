@@ -18,9 +18,10 @@
 .booking-content {
     background-color: #ffffff;
     width: 260px;
-    height: 350px;
+    height: 430px;
     padding: 10px;
     border-radius: 20px;
+
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 
 }
@@ -67,7 +68,7 @@
     color: #00c16e;
     margin-bottom: 0;
 }
-.price-booking a{
+.price-booking a {
     padding: 10px;
     background: white;
     border: 1px solid lightgray;
@@ -76,11 +77,43 @@
     font-size: 14px;
     cursor: pointer;
     /*color: #888888 !important;*/
+    margin-bottom: 20px;
 }
 .price-booking a:hover{
     color: white !important;
     background: #00c16e;
 }
+.feedback-button {
+    display: flex;
+    border-top: 1px solid lightgray;
+    padding-top: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.feedback-button p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #00c16e;
+    margin-bottom: 0;
+}
+
+.feedback-button a {
+    padding: 10px;
+    background: #007bff;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.feedback-button a:hover {
+    color: white !important;
+    background: #00c16e;
+}
+
 .paging-prev{
     font-weight: bold;
     font-size: 18px;
@@ -207,4 +240,6 @@ nav ul li a {
     pointer-events: none;
     text-decoration: none;
 }
+
+
 

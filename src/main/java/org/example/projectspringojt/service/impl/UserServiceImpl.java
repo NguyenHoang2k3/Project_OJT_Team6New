@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserServiceTest {
 
     private final EmailService emailService;
 
-    private Map<String, String> otpStore = new HashMap<>();
+
 
     @Override
     public void registerUser(RegisterUserDTO registerUserDTO) throws IOException {
@@ -48,6 +48,9 @@ public class UserServiceImpl implements UserServiceTest {
 
     }
 
+    // tạo 1 cái để lưu trữ otp
+    private Map<String, String> otpStore = new HashMap<>();
+
     @Override
     public void sendVerificationCode(String email) throws IllegalArgumentException {
         if (!userRepository.existsByEmail(email)) {
@@ -56,9 +59,13 @@ public class UserServiceImpl implements UserServiceTest {
 
 
         String verificationCode = String.format("%06d", new Random().nextInt(999999));
+
+        // sử dụng để lưu trữ
         otpStore.put(email, verificationCode);
         String subject = "Verification Code";
         String text = "Your verification code is: " + verificationCode;
+
+        // dòng này để gửi mail
         emailService.sendEmail(email,subject,text);
 
         System.out.println("Sending verification code to " + email + ": " + verificationCode);

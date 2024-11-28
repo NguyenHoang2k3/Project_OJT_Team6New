@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--<html lang="en">-->
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Car detail</title>
@@ -9,6 +10,36 @@
     <link rel="stylesheet" href="/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+    <style>
+
+
+        .feedback-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .feedback-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .feedback-item .rating {
+            color: #FFD700;
+            font-size: 1rem;
+        }
+
+        .feedback-item .date {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-left: auto;
+        }
+    </style>
 </head>
 <body>
 <div class="header"></div>
@@ -186,38 +217,72 @@
             <p style="color: gray; font-size: 12px">Địa chỉ cụ thể sẽ được hiển thị sau khi thanh toán giữ chỗ</p>
         </div>
 
+
         <div class="car-owner">
+
+
+
+
+
             <h3>Chủ xe</h3>
             <div class="evaluation-data">
-                <img src="https://n1-cstg.mioto.vn/m/avatars/avatar-5.png">
+
+
+                <img th:src="'   ' + ' ' + ' ' + ${feedbacks[0].order.cars.user.avatar}" alt="Owner Image" >
                 <div class="user-info">
-                    <h2>Nguyễn Văn Hiển</h2>
-                    <i class="fas fa-star" style="color: gold;"></i>5.0 -
-                    <i class="fas fa-suitcase" style="color: green;"></i> 10 chuyến
+                    <span th:text="${feedbacks[0].order.cars.user.userName }">Car Owner Name</span>
                 </div>
-                <div class="statistics">
-                    <div class="statistics-item">
-                        <p>Tỉ lệ phản hồi</p>
-                        <p>100%</p>
-                    </div>
 
-                    <div class="statistics-item">
-                        <p>Thời gian phản hồi</p>
-                        <p>5 phút</p>
-                    </div>
+<!--                <div class="statistics">-->
+<!--                    <div class="statistics-item">-->
+<!--                        <p>Tỉ lệ phản hồi</p>-->
+<!--                        <p>100%</p>-->
+<!--                    </div>-->
 
-                    <div class="statistics-item">
-                        <p>Tỉ lệ đồng ý</p>
-                        <p>66%</p>
-                    </div>
-                </div>
+<!--                    <div class="statistics-item">-->
+<!--                        <p>Thời gian phản hồi</p>-->
+<!--                        <p>5 phút</p>-->
+<!--                    </div>-->
+
+<!--                    <div class="statistics-item">-->
+<!--                        <p>Tỉ lệ đồng ý</p>-->
+<!--                        <p>66%</p>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
+
             <div style="display: flex; margin-top: 20px">
-                <i class="fas fa-star" style="color: gold;"></i>5.0 -
-                <p>11 đánh giá</p>
+                <h4 class="mt-4" th:text="${averageRating} + ' • ' + ${totalComments} + ' đánh giá' "></h4>
+
+
             </div>
+
+              <div>
+                  <div th:each="feedback : ${feedbacks}" class="feedback-item">
+                      <img th:src="${feedback.order.user.avatar}" alt="User Image">
+                      <div>
+                          <h5 th:text="${feedback.order.user.userName}">User Name</h5>
+
+                          <!-- Display Different Text Based on Role -->
+                          <span th:if="${feedback.order.user.role.name() == 'CUSTOMER'}" class="text-muted">Customer</span>
+                          <span th:if="${feedback.order.user.role.name() == 'CAR_OWNER'}" class="text-muted">Car Owner</span>
+
+                          <!-- Feedback Rating -->
+                          <div class="rating">
+                              <span th:each="i : ${#numbers.sequence(1, feedback.rating)}">⭐</span>
+                          </div>
+
+                          <!-- Feedback Content -->
+                          <p th:text="${feedback.content}">Feedback Content</p>
+                      </div>
+                      <div class="date" th:text="${feedback.time}">Date</div>
+                  </div>
+              </div>
+
 
         </div>
+
+
 
         <div class="similar-car">
             <h3 style="margin: 20px 0 30px 20px; font-size: 1.25rem">Xe tương tự</h3>

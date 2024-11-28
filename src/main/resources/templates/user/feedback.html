@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -60,14 +60,17 @@
   </style>
 </head>
 <body>
+<div th:fragment="feedback">
 <div class="container">
   <!-- Display Car Owner Info -->
 
   <div class="profile-header">
     <div class="profile-info">
-      <h5>Chủ xe </h5>
-      <img th:src="'   ' + ' ' + ' ' +                                          ${feedbacks[0].order.cars.user.avatar}" alt="Owner Image" class="profile-image">
+      <h5>Chủ xe</h5>
+      <br>
+      <img th:src="'   ' + ' ' + ' ' + ${feedbacks[0].order.cars.user.avatar}" alt="Owner Image" class="profile-image">
       <div>
+
         <span th:text="${feedbacks[0].order.cars.user.userName }">Car Owner Name</span>
 
       </div>
@@ -75,6 +78,7 @@
   </div>
 
   <!-- Feedback List -->
+
   <div class="feedback-list">
     <h4 class="mt-4" th:text="${averageRating} + ' • ' + ${totalComments} + ' đánh giá' "></h4>
 
@@ -98,6 +102,9 @@
       <div class="date" th:text="${feedback.time}">Date</div>
     </div>
   </div>
+
 </div>
+</div>
+
 </body>
 </html>

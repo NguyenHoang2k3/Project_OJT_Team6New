@@ -30,6 +30,9 @@ public class TicketsDiscountController {
     @PostMapping("/tickets/add")
     public String addTicketsDiscount(@ModelAttribute("ticketsDiscountDTO") @Valid TicketsDiscountDTO ticketsDiscountDTO,
                                      BindingResult bindingResult, Model model) {
+
+        List<TicketsDiscount> ticketsDiscounts = ticketsDiscountService.getAllTicketsDiscounts();
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("error", "Error");
             return "/user/addtickets";
@@ -45,6 +48,9 @@ public class TicketsDiscountController {
 
         return "redirect:/tickets/list";
     }
+
+
+
     @GetMapping("/tickets/list")
     public String listTicketsDiscount(Model model) {
         List<TicketsDiscount> ticketsDiscounts = ticketsDiscountService.getAllTicketsDiscounts();

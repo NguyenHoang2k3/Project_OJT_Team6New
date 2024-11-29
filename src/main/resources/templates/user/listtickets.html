@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>List of Tickets Discounts</title>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .page-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .table {
+      width: 100%;
+    }
+
+    .table th, .table td {
+      padding: 12px 8px;
+      text-align: left;
+    }
+
+    .table th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1 class="page-title">List of Tickets Discounts</h1>
+  <!-- Add Button -->
+  <a href="/tickets/add" class="btn btn-success btn-lg">
+    <i class="fa fa-plus"></i> Add New Ticket
+  </a>
+
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>Tickets ID</th>
+      <th>Tickets Name</th>
+      <th>Discount</th>
+      <th>User ID</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="ticket : ${ticketsDiscounts}">
+      <tr>
+        <td th:text="${ticket.ticketsId}">1</td>
+        <td th:text="${ticket.ticketsName}">Sample Ticket</td>
+        <td th:text="${ticket.discount}">10%</td>
+        <td th:text="${ticket.user != null ? ticket.user.userID : 'N/A'}">User ID</td>
+        <td>
+          <a th:href="@{/tickets/edit/{id}(id=${ticket.ticketsId})}" class="btn btn-primary btn-sm" title="Edit">
+            <i class="fa fa-pencil"></i>
+          </a>
+          <a th:href="@{/tickets/delete/{id}(id=${ticket.ticketsId})}" class="btn btn-danger btn-sm" title="Delete">
+            <i class="fa fa-trash"></i>
+          </a>
+        </td>
+      </tr>
+    </th:block>
+    </tbody>
+  </table>
+
+
+</div>
+
+</body>
+
+</html>

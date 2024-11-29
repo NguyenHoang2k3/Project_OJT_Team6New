@@ -13,10 +13,10 @@ public class AppController {
         return "login";
     }
 
-//    @GetMapping("/home")
-//    public String home() {
-//        return "home"; // Trang home chính cho tất cả người dùng
-//    }
+    @GetMapping("/home")
+    public String home() {
+        return "home"; // Trang home chính cho tất cả người dùng
+    }
 
     @GetMapping("/admin/home")
     public String adminHome() {
@@ -33,14 +33,14 @@ public class AppController {
         return "customerHome"; // Có thể bạn muốn tạo một template riêng cho customer, ví dụ "customerHome"
     }
 
-//    @GetMapping("/carDetail")
-//    public String getCarDetails() {
-//        return "carDetail";
-//    }
+    @GetMapping("/carDetail")
+    public String getCarDetails() {
+        return "carDetail";
+    }
 
-//    @GetMapping("/myCars")
-//    public String getMyCars() {
-//        return "myCars";
-//    }
+    @GetMapping("/myCars")
+    public String getMyCars() {
+        return "myCars";
+    }
 
 }

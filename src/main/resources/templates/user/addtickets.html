@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Tickets Discount</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Container styling to center and add box-shadow */
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        /* Title styling */
+        .page-title {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Form input styling */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Button styling */
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 0;
+            border: none;
+            border-radius: 4px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="page-title">Add Tickets Discount</h1>
+    <div th:if="${error}" class="alert alert-danger">
+        <p th:text="${error}">Error occurred</p>
+    </div>
+    <form th:action="@{/tickets/add}" method="post" th:object="${ticketsDiscountDTO}">
+        <div class="form-group">
+            <label for="ticketsName">Tickets Name:</label>
+            <input type="text" id="ticketsName" name="ticketsName" th:field="*{ticketsName}" maxlength="50" required
+                   class="form-control" th:classappend="${#fields.hasErrors('ticketsName')} ? 'is-invalid'">
+            <div th:if="${#fields.hasErrors('ticketsName')}" class="invalid-feedback">
+                <span th:errors="*{ticketsName}">Invalid Tickets Name</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="discount">Discount:</label>
+            <input type="number" id="discount" name="discount" th:field="*{discount}" step="0.01" required
+                   class="form-control" th:classappend="${#fields.hasErrors('discount')} ? 'is-invalid'">
+            <div th:if="${#fields.hasErrors('discount')}" class="invalid-feedback">
+                <span th:errors="*{discount}">Invalid Discount</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="userId">User ID:</label>
+            <input type="number" id="userId" name="userId" th:field="*{userId}" required class="form-control"
+                   th:classappend="${#fields.hasErrors('userId')} ? 'is-invalid'">
+            <div th:if="${#fields.hasErrors('userId')}" class="invalid-feedback">
+                <span th:errors="*{userId}">Invalid User ID</span>
+            </div>
+        </div>
+
+        <input type="submit" value="Add Tickets Discount" class="btn btn-success">
+    </form>
+</div>
+
+</body>
+</html>

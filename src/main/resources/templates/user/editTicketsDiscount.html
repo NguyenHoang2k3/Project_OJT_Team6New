@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Ticket Discount</title>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .page-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px
+
+
+    }
+    .container {
+      width: 40%;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1 class="page-title">Edit Ticket Discount</h1>
+
+  <!-- Display error message if it exists -->
+  <div th:if="${error}" class="alert alert-danger">
+    <p th:text="${error}">Error occurred</p>
+  </div>
+  <form th:action="@{/tickets/edit/{ticketsId}(ticketsId=${ticketsDiscountDTO.ticketsId})}"
+        th:object="${ticketsDiscountDTO}" method="post">
+
+    <!-- Hidden field for ID to ensure it's sent with the form -->
+
+    <input type="hidden"   th:field="*{ticketsId}" />
+
+    <div class="form-group">
+      <label for="ticketsName">Tickets Name</label>
+      <input type="text" id="ticketsName" th:field="*{ticketsName}"
+             class="form-control" th:classappend="${#fields.hasErrors('ticketsName')} ? 'is-invalid'" required>
+      <div th:if="${#fields.hasErrors('ticketsName')}" class="invalid-feedback">
+        <span th:errors="*{ticketsName}">Invalid Tickets Name</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="discount">Discount</label>
+      <input type="number" id="discount" th:field="*{discount}"
+             class="form-control" step="0.1" th:classappend="${#fields.hasErrors('discount')} ? 'is-invalid'" required>
+      <div th:if="${#fields.hasErrors('discount')}" class="invalid-feedback">
+        <span th:errors="*{discount}">Invalid Discount</span>
+      </div>
+    </div>
+    <input type="hidden" id="userId" th:field="*{userId}" />
+
+    <button type="submit" class="btn btn-success">Update Ticket</button>
+  </form>
+
+
+
+
+</div>
+
+</body>
+
+</html>

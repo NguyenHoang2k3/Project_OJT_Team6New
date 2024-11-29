@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Renter: Confirm Received Car</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      background: #fff;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+    }
+    h1 {
+      font-size: 20px;
+      color: #333;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .action-buttons button {
+      padding: 10px;
+      width: 100%;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      background: #007bff;
+      color: #fff;
+    }
+    .action-buttons button:hover {
+      background: #0056b3;
+    }
+    .status-message {
+      text-align: center;
+      margin: 10px 0;
+    }
+    .status-message p {
+      font-size: 14px;
+    }
+    .status-message p.success {
+      color: green;
+    }
+    .status-message p.error {
+      color: red;
+    }
+    .action-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px; /* Khoảng cách giữa các nút */
+    }
+
+    .action-buttons form {
+      flex: 1;
+    }
+
+    .action-buttons button {
+      padding: 10px;
+      width: 100%; /* Đảm bảo nút chiếm hết không gian của form */
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      background: #007bff;
+      color: #fff;
+    }
+
+    .action-buttons button:hover {
+      background: #0056b3;
+    }
+
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Renter: Confirm Received Car</h1>
+
+
+  <div class="status-message">
+    <p class="success">[[${success}]]</p>
+    <p class="error">[[${error}]]</p>
+  </div>
+
+
+  <div class="order-details">
+    <h3>Chi tiết đơn hàng(lượt đi)</h3>
+    <p>Tên sản phẩm: [[${order.cars.name}]]</p>
+    <img th:src="${order.cars.image}" alt="Car Image" style="max-width: 100%; height: auto;" />
+    <p>Tổng số tiền: [[${order.orderPrice}]] ₫</p>
+    <p>Ngày nhận xe: [[${order.OrderStartDate}]]</p>
+    <p>Ngày trả xe: [[${order.OrderEndDate}]]</p>
+    <p>Địa chỉ nhận xe: [[${order.sh_address}]]</p>
+
+    <p>Trạng thái đơn hàng: [[${order.status}]]</p>
+  </div>
+
+
+  <div class="action-buttons">
+    <form th:action="@{/renter/reasoncancelled/{orderId}(orderId=${order.orderId})}" method="get">
+      <input type="hidden" name="orderId" th:value="${order.orderId}">
+      <button type="submit" th:disabled="${order.status == 'CANCELLED' || order.status == 'DONE'}">Hủy đơn hàng</button>
+    </form>
+
+
+
+
+
+    <form th:action="@{/renter/confirm/{orderId}(orderId=${order.orderId})}" method="post">
+      <input type="hidden" name="orderId" th:value="${order.orderId}">
+      <button type="submit" class="confirm-button"
+              th:disabled="${order.status == 'DONE'}">Xác nhận đã nhận xe</button>
+    </form>
+
+
+  </div>
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Owner: Confirm Delivery</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      background: #fff;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+    }
+    h1 {
+      font-size: 20px;
+      color: #333;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .order-details {
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+    .order-details h3 {
+      margin: 5px 0;
+      font-size: 16px;
+      color: #333;
+    }
+    .order-details p {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #666;
+    }
+    .delivery-status {
+      background-color: #f0f9f0;
+      border: 1px solid #d4edd4;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      color: #3b873b;
+      margin: 10px 0;
+    }
+    .action-buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+    .action-buttons button {
+      flex: 1;
+      padding: 10px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .cancel-button {
+      background: #ffdddd;
+      color: #d9534f;
+    }
+    .progress-button {
+      background: #e6f7ff;
+      color: #007bff;
+    }
+    .cancel-button:hover {
+      background: #f2c6c6;
+    }
+    .progress-button:hover {
+      background: #cfe9ff;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Owner: Confirm Delivery</h1>
+
+
+  <p style="color: red;">[[${error}]]</p>
+
+
+  <p style="color: green;">[[${success}]]</p>
+
+  <div class="order-details">
+    <h3>Chi tiết đơn hàng</h3>
+    <p>Tên sản phẩm: [[${order.productName}]]</p>
+    <p>Tổng số tiền: [[${order.totalPrice}]] ₫</p>
+    <p>Ngày giao hàng dự kiến: [[${order.estimatedDeliveryDate}]]</p>
+  </div>
+
+  <div class="delivery-status">
+    Trạng thái đơn hàng: Đơn hàng đã sẵn sàng để xác nhận giao xe.
+  </div>
+
+  <div class="action-buttons">
+    <form action="/owner/cancel" method="post" style="flex: 1;">
+      <input type="hidden" name="orderId" value="[[${order.id}]]">
+      <button type="submit" class="cancel-button">Xác nhận Hủy</button>
+    </form>
+    <form action="/owner/confirm" method="post" style="flex: 1;">
+      <input type="hidden" name="orderId" value="[[${order.id}]]">
+      <button type="submit" class="progress-button">PROGRESS</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

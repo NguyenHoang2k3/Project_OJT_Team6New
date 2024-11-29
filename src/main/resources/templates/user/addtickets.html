@@ -68,16 +68,32 @@
                 width: 80%;
             }
         }
+
+        /* Hide elements when the user chooses the "All Users" option */
+        .user-id-group {
+            display: block;
+        }
+
+        .user-id-group.hidden {
+            display: none;
+        }
+
     </style>
 </head>
 <body>
 
 <div class="container">
     <h1 class="page-title">Add Tickets Discount</h1>
+
+    <!-- Display error message if any -->
     <div th:if="${error}" class="alert alert-danger">
         <p th:text="${error}">Error occurred</p>
     </div>
+
+    <!-- Form for adding discount -->
     <form th:action="@{/tickets/add}" method="post" th:object="${ticketsDiscountDTO}">
+
+        <!-- Tickets Name Field -->
         <div class="form-group">
             <label for="ticketsName">Tickets Name:</label>
             <input type="text" id="ticketsName" name="ticketsName" th:field="*{ticketsName}" maxlength="50" required
@@ -87,6 +103,7 @@
             </div>
         </div>
 
+        <!-- Discount Field -->
         <div class="form-group">
             <label for="discount">Discount:</label>
             <input type="number" id="discount" name="discount" th:field="*{discount}" step="0.01" required
@@ -96,18 +113,64 @@
             </div>
         </div>
 
-        <div class="form-group">
+
+
+        <!-- Specific User ID Field (Hidden by Default) -->
+
             <label for="userId">User ID:</label>
-            <input type="number" id="userId" name="userId" th:field="*{userId}" required class="form-control"
+            <input type="number" id="userId" name="userId" th:field="*{userId}" class="form-control"
                    th:classappend="${#fields.hasErrors('userId')} ? 'is-invalid'">
             <div th:if="${#fields.hasErrors('userId')}" class="invalid-feedback">
                 <span th:errors="*{userId}">Invalid User ID</span>
             </div>
-        </div>
 
+
+        <!-- Submit Button -->
         <input type="submit" value="Add Tickets Discount" class="btn btn-success">
     </form>
 </div>
+
+<!-- JavaScript to toggle visibility of user ID field -->
+<script>
+    function toggleUserIdField(isSpecific) {
+        const userIdGroup = document.getElementById('userIdGroup');
+        if (isSpecific) {
+            userIdGroup.classList.remove('hidden');
+        } else {
+            userIdGroup.classList.add('hidden');
+        }
+    }
+    function toggleUserFields(isSpecific) {
+        const ticketFieldsContainer = document.getElementById('ticketFieldsContainer');
+        ticketFieldsContainer.innerHTML = ''; // Clear previous ticket fields
+
+        if (isSpecific) {
+            // Nếu chọn "Apply to a specific user", chỉ hiển thị một trường
+            const userIdGroup = document.createElement('div');
+            userIdGroup.classList.add('form-group');
+            userIdGroup.innerHTML = `
+            <label for="userId">User ID:</label>
+            <input type="number" id="userId" name="userId" class="form-control" required>
+        `;
+            ticketFieldsContainer.appendChild(userIdGroup);
+        } else {
+            // Nếu chọn "Apply to all users", tạo các trường lặp lại cho nhiều người dùng
+            const userCount = 10; // Giả sử có 10 người dùng (có thể thay đổi số lượng này)
+            for (let i = 1; i <= userCount; i++) {
+                const userTicketGroup = document.createElement('div');
+                userTicketGroup.classList.add('form-group');
+                userTicketGroup.innerHTML = `
+                <label for="ticketsName${i}">Tickets Name for User ${i}:</label>
+                <input type="text" id="ticketsName${i}" name="ticketsName${i}" class="form-control" required>
+                <label for="discount${i}">Discount for User ${i}:</label>
+                <input type="number" id="discount${i}" name="discount${i}" class="form-control" step="0.01" required>
+            `;
+                ticketFieldsContainer.appendChild(userTicketGroup);
+            }
+        }
+    }
+
+</script>
 
 </body>
 </html>

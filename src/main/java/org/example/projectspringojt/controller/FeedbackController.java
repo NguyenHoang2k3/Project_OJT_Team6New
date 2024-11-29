@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -51,8 +52,9 @@ public class FeedbackController {
 
             @PathVariable Integer orderId
             , Model model) {
+        Optional<Order> orderOptional = orderRepository.findById(orderId);
         model.addAttribute("orderId", orderId);
-
+        model.addAttribute("order", orderOptional.get());
         return "/user/addFeedback";
     }
 

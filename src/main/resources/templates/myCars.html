@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 <style>
     html{
@@ -37,7 +38,7 @@
             </ul>
         </nav>
         <div class="actions" id="actions" style="display: none">
-            <a href="#" id="register">Đăng ký</a>
+            <a href="/register" id="register">Đăng ký</a>
             <a href="/login" id="login">Đăng nhập</a>
         </div>
         <div class="info-user" id="info-user">
@@ -87,7 +88,7 @@
 
                                 <a th:href="@{/order/update/{orderId}(orderId=${order.orderId})}" style="text-decoration: none; color: inherit;">
                                     <div class="image-car">
-                                     <!--  <img th:src="@{/ImageProject/{imageName}(imageName=${order.cars.image})}" alt="Car Image">  -->  
+                                     <!--  <img th:src="@{/ImageProject/{imageName}(imageName=${order.cars.image})}" alt="Car Image">  -->
                                         <img th:src="${order.cars.image}">
                                     </div>
                                     <div class="Name_and_address">
@@ -200,12 +201,6 @@
 
                         </div>
 
-<!--                        <div th:if="${order.status == T(org.example.projectspringojt.entity.Status).DONE}" class="feedback-button">-->
-<!--                            <button type="button" class="btn btn-primary" data-orderid="${order.orderId}" data-toggle="modal" data-target="#commentModal">-->
-<!--                                Đánh giá-->
-<!--                            </button>-->
-<!--                        </div>-->
-
 
 
 
@@ -298,110 +293,12 @@
         </div>
     </div>
 </footer>
-<!-- Modal -->
-<div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="commentModalLabel">Thêm Bình Luận Của Bạn</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Form thêm bình luận -->
-                <form th:action="@{/feedbacks/add/order/{orderId}(orderId=${orderId})}" method="post">
-                    <!-- Input ẩn để chứa orderId -->
-                    <input type="hidden" name="orderId" id="orderIdInput">
-                    <!-- Input ẩn chứa rating mặc định -->
-                    <input type="hidden" id="ratingInput" name="rating" value="5">
-                    <!-- Phần đánh giá (star rating) -->
-                    <div class="form-group">
-                        <label>Đánh giá</label>
-                        <div class="star-rating">
-                            <span class="star" data-value="1">★</span>
-                            <span class="star" data-value="2">★</span>
-                            <span class="star" data-value="3">★</span>
-                            <span class="star" data-value="4">★</span>
-                            <span class="star" data-value="5">★</span>
-                        </div>
-                    </div>
-                    <!-- Nội dung bình luận -->
-                    <div class="form-group">
-                        <label for="content">Nội dung bình luận</label>
-                        <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
-                    </div>
-                    <!-- Nút gửi bình luận -->
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Gửi Bình Luận</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
-                        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
 <script>
 
-    $(document).ready(function() {
-        // Khi nhấn nút "Đánh giá"
-        $('.btn-primary').on('click', function() {
-            var orderId = $(this).data('orderid');
 
-            // Gán orderId vào input ẩn trong modal
-            $('#orderIdInput').val(orderId);
-
-            // Mở modal
-            $('#commentModal').modal('show');
-        });
-
-        // Đánh giá sao (rating)
-        const stars = document.querySelectorAll('.star');
-        const ratingInput = document.getElementById('ratingInput');
-
-        stars.forEach(star => {
-            star.addEventListener('click', () => {
-                const rating = parseInt(star.getAttribute('data-value'));
-                ratingInput.value = rating;
-
-                // Highlight stars up to the selected one and remove highlight for others
-                stars.forEach((s, idx) => {
-                    if (idx < rating) {
-                        s.classList.add('selected');
-                    } else {
-                        s.classList.remove('selected');
-                    }
-                });
-            });
-
-            star.addEventListener('mouseover', () => {
-                const hoverValue = parseInt(star.getAttribute('data-value'));
-                stars.forEach((s, idx) => {
-                    if (idx < hoverValue) {
-                        s.classList.add('selected');
-                    } else {
-                        s.classList.remove('selected');
-                    }
-                });
-            });
-
-            star.addEventListener('mouseout', () => {
-                const currentRating = parseInt(ratingInput.value);
-                stars.forEach((s, idx) => {
-                    if (idx < currentRating) {
-                        s.classList.add('selected');
-                    } else {
-                        s.classList.remove('selected');
-                    }
-                });
-            });
-        });
-    });
 
 
 
